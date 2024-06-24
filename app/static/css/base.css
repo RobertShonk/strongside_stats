@@ -24,8 +24,12 @@ body {
     margin-top: .65rem;
 }
 
-#summoner_name {
+.nav_form_input {
     font-size: 1.25rem;
+}
+
+#tag_line {
+    width: 2.85rem;
 }
 
 #nav_form_submit{
