@@ -1,0 +1,42 @@
+body {
+    background-color: dodgerblue;
+    margin: 0px;
+}
+
+#navbar {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    background-color: blue;
+    height: 3rem;
+}
+
+#nav_links {
+    padding-top: 0.9rem;
+    padding-left: 0.8rem;
+}
+
+.nav_link {
+    text-decoration: none;
+    color: white;
+}
+
+#nav_form {
+    margin-top: .65rem;
+}
+
+#summoner_name {
+    font-size: 1.25rem;
+}
+
+#nav_form_submit{
+    font-size: 1.2rem;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+}
+
+.center_main {
+    background-color:lightsteelblue;
+}
