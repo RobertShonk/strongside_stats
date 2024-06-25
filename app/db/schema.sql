@@ -42,8 +42,8 @@ CREATE TABLE match_table (
 CREATE TABLE participant (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     assists INTEGER NOT NULL,
-    baron_kills INT NOT NULL,
-    bounty_level INT NOT NULL,
+    baron_kills INTEGER NOT NULL,
+    bounty_level INTEGER NOT NULL,
     champ_experience INT NOT NULL,
     champ_level INTEGER NOT NULL,
     champion_id INTEGER NOT NULL,
