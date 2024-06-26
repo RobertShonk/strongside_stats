@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock %}
+{% block title %}Index{% endblock %}
 {% block links %}{% endblock %}
 
 {% block left_main %}{% endblock %}
 
-{% block content %}{% endblock %}
+{% block center_main %}
+    <div id="navigation">
+        <form class="index_forms" id="f1" action="{{ url_for('api.get_summoner') }}" method="post">
+            <input type="submit" id="get_summoner" value="Get Summoner">
+        </form>
+        <form class="index_forms" id="f2" action="{{ url_for('api.get_match') }}" method="post">
+            <input type="submit" id="get_match" value="Get Match">
+        </form>
+    </div>
+{% endblock %}
 
 {% block right_main %}{% endblock %}
 

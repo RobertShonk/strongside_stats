@@ -38,7 +38,8 @@ def get_league(summoner_id):
     
     return None
 
-# returns 20 most recent matches by default.
+# returns count=20 most recent matches by default.
+# stick to 20 for now just to keep an eye on the rate limit.
 def get_match_list(puuid):
     match_list_url = MATCH_LIST + puuid + "/ids?start=0&count=20&api_key=" + Constants.RIOT_API_KEY
     req = requests.get(match_list_url)

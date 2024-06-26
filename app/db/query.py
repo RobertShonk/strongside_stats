@@ -72,6 +72,32 @@ def insert_summoner(account, summoner, league):
     return "201"
 
 
+def get_matches_by_game_name(game_name, tag_line):
+    db = get_db()
+
+    match_ids = db.execute(
+        "SELECT match_id FROM participant WHERE riot_id_game_name LIKE ? AND riot_id_tag_line LIKE ?",
+        (game_name, tag_line,)
+    ).fetchall()
+
+    matches = []
+    ms = []
+    for id in match_ids:
+        match = db.execute(
+            "SELECT match_table.*, participant.* FROM match_table"
+            " INNER JOIN participant ON match_table.id = participant.match_id"
+            " WHERE match_table.id = ?",
+            (id[0],)
+        ).fetchall()
+
+        for m in match:
+            ms.append(dict(m))
+
+        matches.append(ms)
+    
+    return matches
+
+
 def insert_match(match):
     db = get_db()
 
@@ -83,7 +109,7 @@ def insert_match(match):
         (match['metadata']['matchId'], match['info']['endOfGameResult'], match['info']['gameCreation'], match['info']['gameDuration'],
         match['info']['gameEndTimestamp'], match['info']['gameId'], match['info']['gameMode'], match['info']['gameName'],
         match['info']['gameStartTimestamp'], match['info']['gameType'], match['info']['gameVersion'], match['info']['mapId'],
-        match['info']['platformId'], match['info']['queueId'],)
+        match['info']['platformId'], match['info']['queueId'])
     )
     db.commit()
 
@@ -123,17 +149,16 @@ def insert_participants(participants, match_id):
     db = get_db()
 
     match_PK = db.execute(
-            "SELECT id FROM match_table WHERE match_id = ?",
-            (match_id,)
-        ).fetchone()
+        "SELECT id FROM match_table WHERE match_id = ?",
+        (match_id,)
+    ).fetchone()
 
     check_participants = db.execute(
         "SELECT id FROM participant WHERE match_id = ?",
         (match_PK[0],)
     ).fetchall()
 
-    
-
+    print(check_participants)
     if len(check_participants) < 10:
         parts = []
         for p in participants:
