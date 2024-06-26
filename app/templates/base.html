@@ -12,7 +12,7 @@
         <div id="nav_links">
             <a class="nav_link" href="#">Strongside Stats</a>
         </div>
-        <form id="nav_form" action="#" method="get">
+        <form id="nav_form" action="{{ url_for('api.result') }}" method="get">
             <input class="nav_form_input" id="summoner_name" type="text" name="summoner_name" placeholder="Summoner Name" required>
             <input class="nav_form_input" id="tag_line" type="text" name="tag_line" placeholder="tag" required>
             <input id="nav_form_submit" type="submit" value="Search!">

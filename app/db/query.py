@@ -55,6 +55,8 @@ def insert_summoner(account, summoner, league):
             flex_tier, flex_rank, flex_league_points, flex_wins, flex_losses,
             current_milli_time())
         )
+        db.commit()
+        return "201"
     else:
         db.execute(
             "UPDATE summoner SET"
@@ -66,22 +68,20 @@ def insert_summoner(account, summoner, league):
             flex_tier, flex_rank, flex_league_points, flex_wins, flex_losses,
             current_milli_time(), account['gameName'], account['tagLine'])
         )
-
-    db.commit()
-
-    return "201"
+        db.commit()
+        return "200"
 
 
 def get_matches_by_game_name(game_name, tag_line):
     db = get_db()
 
     match_ids = db.execute(
-        "SELECT match_id FROM participant WHERE riot_id_game_name LIKE ? AND riot_id_tag_line LIKE ?",
+        "SELECT match_id FROM participant WHERE riot_id_game_name LIKE ? AND riot_id_tag_line LIKE ? LIMIT 20",
         (game_name, tag_line,)
     ).fetchall()
 
     matches = []
-    ms = []
+
     for id in match_ids:
         match = db.execute(
             "SELECT match_table.*, participant.* FROM match_table"
@@ -90,11 +90,8 @@ def get_matches_by_game_name(game_name, tag_line):
             (id[0],)
         ).fetchall()
 
-        for m in match:
-            ms.append(dict(m))
-
-        matches.append(ms)
-    
+        matches.append(match)
+ 
     return matches
 
 
@@ -143,22 +140,24 @@ def insert_matches(matches):
     return "201"
 
 
-# participants = list of participants
+# participants = list of participants from one match
 # match_id: used to check the list of 10 participants for match exists or not
 def insert_participants(participants, match_id):
     db = get_db()
 
+    # match_id in match_table looks like "NA12345".
     match_PK = db.execute(
         "SELECT id FROM match_table WHERE match_id = ?",
         (match_id,)
     ).fetchone()
 
+    # match_id in participant is FK to match_table from participants.
     check_participants = db.execute(
         "SELECT id FROM participant WHERE match_id = ?",
         (match_PK[0],)
     ).fetchall()
 
-    print(check_participants)
+    print(match_PK['id'])
     if len(check_participants) < 10:
         parts = []
         for p in participants:

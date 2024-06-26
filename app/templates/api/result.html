@@ -5,7 +5,20 @@
 
 {% block left_main %}{% endblock %}
 
-{% block center_main %}{% endblock %}
+{% block center_main %}
+    <h1>{{ summoner['game_name'] }}</h1>
+    <form action="{{ url_for('api.result') }}" method="post">
+        <input type="hidden" name="summoner_name" value="{{ request.args.get('summoner_name')}}">
+        <input type="hidden" name="tag_line" value="{{ request.args.get('tag_line') }}">
+        <input type="submit" value="update">
+    </form>
+    {% for match in matches %}
+        <h1>{{ loop.index }}</h1>
+        {% for player in match %}
+            {{ loop.index }}: {{ player['match_id'] }} <br>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
 
 {% block right_main %}{% endblock %}
 
