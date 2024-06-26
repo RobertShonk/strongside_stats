@@ -8,6 +8,7 @@ from flask import (
 
 from . import riot_api
 from .db import query
+from . import Constants
 
 bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -39,7 +40,7 @@ def get_matches(game_name, tag_line):
 @bp.route('/get_match', methods=['POST'])
 def get_match():
     if request.method == 'POST':
-        match_list = riot_api.get_match_list("uyxQC2GoDjAkRr47CQNAy7fgjdeGe283r4Bxf1-0DelRo3_g1zO-OMuxiEn-DKriDu2IAKggl4NWbA")
+        match_list = riot_api.get_match_list(Constants.TEST_PUUID)
         match = riot_api.get_match(match_list[0])
         res1 = query.insert_match(match)
         print(res1)
