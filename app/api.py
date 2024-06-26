@@ -1,5 +1,4 @@
 import functools
-import json
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify
@@ -17,14 +16,14 @@ def index():
     return render_template('api/index.html')
 
 
-# get json
+# get summoner json
 @bp.route('/summoners/summoner/by-riot-name/<game_name>/<tag_line>')
 def get_summoner_json(game_name, tag_line):
     summoner = query.get_summoner(game_name, tag_line)
-
     return jsonify(summoner)
 
 
+# get matches json
 # returns list of lists of dicts of matches.
 @bp.route('/matches/by-game-name/<game_name>/<tag_line>')
 def get_matches(game_name, tag_line):
@@ -67,6 +66,40 @@ def get_summoner():
         print(res)
 
         return redirect(url_for('api.index'))
+    
+
+# TODO make routes for inserting/updating summoner and inserting matches+participants
+# want to get account, summoner, league, match_ids, matches
+# literally does result() but only responds to post and returns response code only
+@bp.route('/insert_update', methods=['POST', 'GET'])
+def insert_update():
+    if request.method == 'POST':
+        # want to get account, summoner, league, match_ids, matches
+        summoner_name = request.form['summoner_name']
+        tag_line = request.form['tag_line']
+
+        account = riot_api.get_account(summoner_name, tag_line)
+        summoner = riot_api.get_summoner(account['puuid'])
+        league = riot_api.get_league(summoner['id'])
+
+        res1 = query.insert_summoner(account, summoner, league)
+
+        match_ids = riot_api.get_match_list(account['puuid'])
+        matches = []
+        for id in match_ids:
+            match = riot_api.get_match(id)
+            matches.append(match)
+
+        res2 = query.insert_matches(matches)
+
+        res3 = ""
+        for match in matches:
+            participants = match['info']['participants']
+            res3 = query.insert_participants(participants, match['metadata']['matchId'])
+
+        return res3
+    
+    return "shouldve been a post"
     
 
 # gets summoner and list of matches by summoner_name + game_name.
