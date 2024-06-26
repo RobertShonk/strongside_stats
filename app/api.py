@@ -95,7 +95,7 @@ def result():
             participants = match['info']['participants']
             res3 = query.insert_participants(participants, match['metadata']['matchId'])
 
-        return res3
+        return redirect(url_for('api.result', summoner_name=summoner_name, tag_line=tag_line))
     
     # get request
     summoner_name = request.args.get('summoner_name')
