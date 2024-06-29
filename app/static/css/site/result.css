@@ -1,0 +1,26 @@
+#player_profile {
+    display: grid;
+    grid-template-columns: 15% 20% auto auto;
+    background-color:white;
+    border-radius: 10px;
+    height: 7rem;
+}
+
+#profile_icon {
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    margin-left: 1.2rem;
+    margin-top: .5rem;
+}
+
+.match {
+    display: grid;
+    grid-template-columns: 20% 35% 45%;
+    background-color:white;
+}
+
+.teams {
+    display: grid;
+    grid-template-columns: auto auto;
+}

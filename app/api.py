@@ -32,7 +32,7 @@ def get_matches(game_name, tag_line):
     # matches[0][1] = second participant of first match
     ms = []
     for match in matches:
-        match = [tuple(m) for m in match]
+        match = [dict(m) for m in match]
         ms.append(match)
     return jsonify(ms)
 
@@ -71,6 +71,7 @@ def get_summoner():
 # TODO make routes for inserting/updating summoner and inserting matches+participants
 # want to get account, summoner, league, match_ids, matches
 # literally does result() but only responds to post and returns response code only
+# used for whenever players want to insert their info for the first time or to update existing info.
 @bp.route('/insert_update', methods=['POST', 'GET'])
 def insert_update():
     if request.method == 'POST':

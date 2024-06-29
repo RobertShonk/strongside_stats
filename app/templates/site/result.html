@@ -1,0 +1,72 @@
+{% extends 'site_base.html' %}
+
+{% block title %}Index{% endblock %}
+{% block links %}
+    <link rel="stylesheet" href="\static\css\site\result.css">
+{% endblock %}
+
+{% block left_main %}{% endblock %}
+
+{% block center_main %}
+    {% if summoner is not none %}
+    <div id="player_profile">
+        <div id="player_icon">
+            <img id="profile_icon" src="\static\dragontail\img\profile_icon\{{ summoner['profile_icon_id'] }}.png">
+        </div>
+        <div id="summoner_name">
+                <h3>{{ summoner['game_name'] }}</h3>
+                <h3>Lv: {{ summoner['summoner_level'] }}</h3>
+    
+        </div>
+        <div id="solo_duo">
+            <h3 class="profile_rank_titles">Solo/Duo</h3>
+            {% if summoner['solo_tier'] is not none %}
+                {{ summoner['solo_tier'] }} {{ summoner['solo_rank'] }} - {{ summoner['solo_league_points'] }} LP<br>
+                {{ summoner['solo_wins'] }}W {{ summoner['solo_losses'] }}L [{{ (100*(summoner['solo_wins']/(summoner['solo_wins'] + summoner['solo_losses'])))|round(2) }} wr]
+            {% endif %}
+        </div>
+        <div id="flex">
+            <h3 class="profile_rank_titles">Flex</h3>
+            {% if summoner['flex_tier'] is not none %}
+                {{ summoner['flex_tier'] }} {{ summoner['flex_rank'] }} - {{ summoner['flex_league_points'] }} LP<br>
+                {{ summoner['flex_wins'] }}W {{ summoner['flex_losses'] }}L [{{ (100*(summoner['flex_wins']/(summoner['flex_wins'] + summoner['flex_losses'])))|round(2) }} wr]
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    <div id="matches">
+        <h2>Matches</h2>
+        {% for match in matches %}
+            <div class="match">
+                <div class="match_meta_data">
+                    <p>ARAM</p>
+                    <p>victory!</p>
+                </div>
+                <div class="player_match_info">
+                    <p>img sums</p>
+                    <p>items</p>
+                </div>
+                <div class="teams">
+                    <div class="team1">
+                        {{ match[0]['riot_id_game_name'] }}<br>
+                        {{ match[1]['riot_id_game_name'] }}<br>
+                        {{ match[2]['riot_id_game_name'] }}<br>
+                        {{ match[3]['riot_id_game_name'] }}<br>
+                        {{ match[4]['riot_id_game_name'] }}<br>
+                    </div>
+                    <div class="team2">
+                        {{ match[5]['riot_id_game_name'] }}<br>
+                        {{ match[6]['riot_id_game_name'] }}<br>
+                        {{ match[7]['riot_id_game_name'] }}<br>
+                        {{ match[8]['riot_id_game_name'] }}<br>
+                        {{ match[9]['riot_id_game_name'] }}<br>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block right_main %}{% endblock %}
+
+{% block scripts %}{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - API</title>
+    <link rel="stylesheet" href="\static\css\base.css">
+    {% block links %}{% endblock %}
+</head>
+<body>
+    <nav id="navbar">
+        <div id="nav_links">
+            <a class="nav_link" href="#">Strongside Stats</a>
+        </div>
+        <form id="nav_form" action="{{ url_for('site.result') }}" method="get">
+            <input class="nav_form_input" id="summoner_name" type="text" name="summoner_name" placeholder="Summoner Name" required>
+            <input class="nav_form_input" id="tag_line" type="text" name="tag_line" placeholder="tag" required>
+            <input id="nav_form_submit" type="submit" value="Search!">
+        </form>
+        <div id="nav_more">
+            <a class="nav_more_link" href="#">Sign in</a>
+            <a class="nav_more_link" href="#">About</a>
+        </div>
+        
+    </nav>
+    <div class="main">
+        <div class="left_main">
+            {% block left_main %}{% endblock %}
+        </div>
+        <div class="center_main">
+            {% block center_main %}{% endblock %}
+        </div>
+        <div class="right_main">
+            {% block right_main %}{% endblock %}
+        </div>
+    </div>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -42,5 +42,6 @@ body {
 }
 
 .center_main {
+    border-radius: 10px;
     background-color:lightsteelblue;
 }

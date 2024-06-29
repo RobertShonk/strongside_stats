@@ -14,3 +14,5 @@ build/
 *.egg-info/
 
 Constants.py
+
+app/static/dragontail
