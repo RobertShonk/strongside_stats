@@ -8,7 +8,7 @@
 {% block left_main %}{% endblock %}
 
 {% block center_main %}
-    {% if summoner is not none %}
+    {% if summoner %}
     <div id="player_profile">
         <div id="player_icon">
             <img id="profile_icon" src="\static\dragontail\img\profile_icon\{{ summoner['profile_icon_id'] }}.png">
@@ -20,51 +20,100 @@
         </div>
         <div id="solo_duo">
             <h3 class="profile_rank_titles">Solo/Duo</h3>
-            {% if summoner['solo_tier'] is not none %}
+            {% if summoner['solo_tier'] != "" %}
                 {{ summoner['solo_tier'] }} {{ summoner['solo_rank'] }} - {{ summoner['solo_league_points'] }} LP<br>
                 {{ summoner['solo_wins'] }}W {{ summoner['solo_losses'] }}L [{{ (100*(summoner['solo_wins']/(summoner['solo_wins'] + summoner['solo_losses'])))|round(2) }} wr]
             {% endif %}
         </div>
         <div id="flex">
             <h3 class="profile_rank_titles">Flex</h3>
-            {% if summoner['flex_tier'] is not none %}
+            {% if summoner['flex_tier'] != "" %}
                 {{ summoner['flex_tier'] }} {{ summoner['flex_rank'] }} - {{ summoner['flex_league_points'] }} LP<br>
                 {{ summoner['flex_wins'] }}W {{ summoner['flex_losses'] }}L [{{ (100*(summoner['flex_wins']/(summoner['flex_wins'] + summoner['flex_losses'])))|round(2) }} wr]
             {% endif %}
         </div>
+        <form id="update_form" action="#" method="post">
+            <input type="hidden" name="summoner_name" value="{{ request.args.get('summoner_name') }}">
+            <input type="hidden" name="tag_line" value="{{ request.args.get('tag_line') }}">
+            <input type="submit" value="update">
+        </form>
     </div>
     {% endif %}
+    {% if matches != "404" %}
     <div id="matches">
-        <h2>Matches</h2>
+        <h2>Recent Matches</h2>
         {% for match in matches %}
             <div class="match">
                 <div class="match_meta_data">
-                    <p>ARAM</p>
-                    <p>victory!</p>
+                    {% for player in match %}
+                        {% if player['riot_id_game_name'] == summoner['game_name'] %}
+                            <p>{{ player['game_mode'] }}</p>
+                            {% if player['win'] == 1 %}
+                                <p>Victory!</p>
+                            {% else %}
+                                <p>Defeat</p>
+                            {% endif %}
+                            <p>{{ player['game_duration']|seconds_to_minutes }}</p>
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <div class="player_match_info">
-                    <p>img sums</p>
-                    <p>items</p>
+                    {% for player in match %}
+                        {% if player['riot_id_game_name'] == summoner['game_name'] %}
+                            <div class="player_match_info_upper">
+                                <img class="player_champ_icon" src="\static\dragontail\img\champion\{{ player['champion_name']}}.png">
+                                <div class="player_summoner_spells">
+                                    {% for sum in sum_spell_ids.values() %}
+                                        {% if sum['key']|int == player['summoner1_id']|int %}
+                                            <img class="summoner_spell_icons" src="\static\dragontail\img\summoner_spells\{{ sum['image']['full']}}"><br>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for sum in sum_spell_ids.values() %}
+                                        {% if sum['key']|int == player['summoner2_id']|int %}
+                                            <img class="summoner_spell_icons" src="\static\dragontail\img\summoner_spells\{{ sum['image']['full']}}"><br>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="player_match_info_lower">
+                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item0']}}.png">
+                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item1']}}.png">
+                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item2']}}.png">
+                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item3']}}.png">
+                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item4']}}.png">
+                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item5']}}.png">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <div class="teams">
                     <div class="team1">
-                        {{ match[0]['riot_id_game_name'] }}<br>
-                        {{ match[1]['riot_id_game_name'] }}<br>
-                        {{ match[2]['riot_id_game_name'] }}<br>
-                        {{ match[3]['riot_id_game_name'] }}<br>
-                        {{ match[4]['riot_id_game_name'] }}<br>
+                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[0]['champion_name'] }}.png">{{ match[0]['riot_id_game_name'] }}<br>
+                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[1]['champion_name'] }}.png">{{ match[1]['riot_id_game_name'] }}<br>
+                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[2]['champion_name'] }}.png">{{ match[2]['riot_id_game_name'] }}<br>
+                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[3]['champion_name'] }}.png">{{ match[3]['riot_id_game_name'] }}<br>
+                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[4]['champion_name'] }}.png">{{ match[4]['riot_id_game_name'] }}<br>
                     </div>
                     <div class="team2">
-                        {{ match[5]['riot_id_game_name'] }}<br>
-                        {{ match[6]['riot_id_game_name'] }}<br>
-                        {{ match[7]['riot_id_game_name'] }}<br>
-                        {{ match[8]['riot_id_game_name'] }}<br>
-                        {{ match[9]['riot_id_game_name'] }}<br>
+                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[5]['champion_name'] }}.png">{{ match[5]['riot_id_game_name'] }}<br>
+                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[6]['champion_name'] }}.png">{{ match[6]['riot_id_game_name'] }}<br>
+                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[7]['champion_name'] }}.png">{{ match[7]['riot_id_game_name'] }}<br>
+                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[8]['champion_name'] }}.png">{{ match[8]['riot_id_game_name'] }}<br>
+                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[9]['champion_name'] }}.png">{{ match[9]['riot_id_game_name'] }}<br>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
+    {% else %}
+        <p id="not_found">{{ request.args.get('summoner_name') }} not found</p>
+        <form id="update_form" action="#" method="post">
+            <input type="hidden" name="summoner_name" value="{{ request.args.get('summoner_name') }}">
+            <input type="hidden" name="tag_line" value="{{ request.args.get('tag_line') }}">
+            <input type="submit" value="update">
+        </form>
+    {% endif %}
+    
 {% endblock %}
 
 {% block right_main %}{% endblock %}

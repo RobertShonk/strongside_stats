@@ -1,4 +1,5 @@
 import functools
+import json
 
 import requests
 from flask import (
@@ -26,4 +27,11 @@ def result():
     summoner = requests.get(f"{Constants.SITE['summoner_url']}{summoner_name}/{tag_line}").json()
     matches = requests.get(f"{Constants.SITE['matches_url']}{summoner_name}/{tag_line}").json()
 
-    return render_template('site/result.html', summoner=summoner, matches=matches)
+    if summoner != "404" and matches != "404":
+        with open('app\static\dragontail\data\summoner.json') as f:
+            sum_spell_ids = json.load(f)
+
+        return render_template('site/result.html', summoner=summoner, matches=matches, sum_spell_ids=sum_spell_ids['data'])
+    
+    return render_template('site/result.html', summoner=None, matches="404", sum_spell_ids=None)
+    

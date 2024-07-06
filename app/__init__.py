@@ -35,5 +35,8 @@ def create_app(test_config=None):
     from . import site
     app.register_blueprint(site.bp)
     app.add_url_rule('/', endpoint='index')
+
+    from . import jinja_filters
+    app.jinja_env.filters['seconds_to_minutes'] = jinja_filters.seconds_to_mins
     
     return app

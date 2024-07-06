@@ -14,13 +14,72 @@
     margin-top: .5rem;
 }
 
+#matches {
+    background-color: lightblue;
+}
+
 .match {
     display: grid;
     grid-template-columns: 20% 35% 45%;
     background-color:white;
+    border-radius: 10px;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+
+    margin-bottom: .75rem;
+}
+
+.match_meta_data {
+    margin-left: 1rem;
+    margin-top: 0.75rem;
+}
+
+.player_match_info_upper {
+    display: grid;
+    grid-template-columns: 30% auto;
+}
+
+.player_champ_icon {
+    border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+    margin-top: 1rem;
+}
+
+.player_summoner_spells {
+    margin-top: 1.25rem;
+}
+
+.summoner_spell_icons {
+    height: 1.75rem;
+    width: 1.75rem;
+}
+
+.item_icons {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-top: 1rem;
 }
 
 .teams {
     display: grid;
     grid-template-columns: auto auto;
+}
+
+#team1 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#team2 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.team_icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
 }

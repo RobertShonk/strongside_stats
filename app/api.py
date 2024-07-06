@@ -20,7 +20,13 @@ def index():
 @bp.route('/summoners/summoner/by-riot-name/<game_name>/<tag_line>')
 def get_summoner_json(game_name, tag_line):
     summoner = query.get_summoner(game_name, tag_line)
+
+    if summoner is None:
+        return "404"
+    
     return jsonify(summoner)
+    
+    
 
 
 # get matches json
@@ -34,6 +40,10 @@ def get_matches(game_name, tag_line):
     for match in matches:
         match = [dict(m) for m in match]
         ms.append(match)
+
+    if len(ms) < 1:
+        return "404"
+    
     return jsonify(ms)
 
 
