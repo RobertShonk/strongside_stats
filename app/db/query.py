@@ -12,7 +12,7 @@ def get_summoner(game_name, tag_line):
     ).fetchone()
 
     if summoner is None:
-        return "404"
+        return 404
     
     return dict(summoner)
 
@@ -56,7 +56,7 @@ def insert_summoner(account, summoner, league):
             current_milli_time())
         )
         db.commit()
-        return "201"
+        return 201
     else:
         db.execute(
             "UPDATE summoner SET"
@@ -69,7 +69,7 @@ def insert_summoner(account, summoner, league):
             current_milli_time(), account['gameName'], account['tagLine'])
         )
         db.commit()
-        return "200"
+        return 200
 
 
 def get_matches_by_game_name(game_name, tag_line):
@@ -110,7 +110,7 @@ def insert_match(match):
     )
     db.commit()
 
-    return "201"
+    return 201
 
 
 # takes in a list of matches and inserts them all into the db via db.executemany().
@@ -137,7 +137,7 @@ def insert_matches(matches):
     )
     db.commit()
 
-    return "201"
+    return 201
 
 
 # participants = list of participants from one match
@@ -206,7 +206,7 @@ def insert_participants(participants, match_id):
         )
         db.commit()
         
-        return "200"
+        return 200
     
     return "did not insert participants"
 
