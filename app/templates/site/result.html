@@ -32,7 +32,7 @@
                 {{ summoner['flex_wins'] }}W {{ summoner['flex_losses'] }}L [{{ (100*(summoner['flex_wins']/(summoner['flex_wins'] + summoner['flex_losses'])))|round(2) }} wr]
             {% endif %}
         </div>
-        <form id="update_form" action="#" method="post">
+        <form id="update_form" action="{{ url_for('site.result')}}" method="post">
             <input type="hidden" name="summoner_name" value="{{ request.args.get('summoner_name') }}">
             <input type="hidden" name="tag_line" value="{{ request.args.get('tag_line') }}">
             <input type="submit" value="update">
