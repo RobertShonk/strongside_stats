@@ -22,7 +22,7 @@ def get_summoner_json(game_name, tag_line):
     summoner = query.get_summoner(game_name, tag_line)
 
     if summoner is None:
-        return "404"
+        return 404
     
     return jsonify(summoner)
     
@@ -42,7 +42,7 @@ def get_matches(game_name, tag_line):
         ms.append(match)
 
     if len(ms) < 1:
-        return "404"
+        return 404
     
     return jsonify(ms)
 
