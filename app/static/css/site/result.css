@@ -20,7 +20,7 @@
 
 .match {
     display: grid;
-    grid-template-columns: 20% 35% 45%;
+    grid-template-columns: 20% 40% 40%;
     background-color:white;
     border-radius: 10px;
     padding-top: 1.25rem;
@@ -34,20 +34,27 @@
     margin-top: 0.75rem;
 }
 
+.player_match_info {
+    display: grid;
+    grid-template-columns: 65% auto;
+}
+
 .player_match_info_upper {
     display: grid;
     grid-template-columns: 30% auto;
+    margin-left: 2rem;
 }
 
 .player_champ_icon {
     border-radius: 50%;
-    height: 5rem;
-    width: 5rem;
+    height: 4.25rem;
+    width: 4.25rem;
     margin-top: 1rem;
 }
 
 .player_summoner_spells {
     margin-top: 1.25rem;
+    margin-left: 1rem;
 }
 
 .summoner_spell_icons {
