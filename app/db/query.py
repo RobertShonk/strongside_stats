@@ -76,7 +76,7 @@ def get_matches_by_game_name(game_name, tag_line):
     db = get_db()
 
     match_ids = db.execute(
-        "SELECT match_id FROM participant WHERE riot_id_game_name LIKE ? AND riot_id_tag_line LIKE ? ORDER BY id DESC LIMIT 20",
+        "SELECT match_id FROM participant WHERE riot_id_game_name LIKE ? AND riot_id_tag_line LIKE ? ORDER BY id DESC LIMIT 40",
         (game_name, tag_line,)
     ).fetchall()
 
