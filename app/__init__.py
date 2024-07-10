@@ -38,5 +38,6 @@ def create_app(test_config=None):
 
     from . import jinja_filters
     app.jinja_env.filters['seconds_to_minutes'] = jinja_filters.seconds_to_mins
+    app.jinja_env.filters['epoch_to_date'] = jinja_filters.epoch_to_date
     
     return app
