@@ -22,7 +22,7 @@ def get_summoner_json(game_name, tag_line):
     summoner = query.get_summoner(game_name, tag_line)
 
     if summoner is None:
-        return 404
+        return jsonify(404)
     
     return jsonify(summoner)
     
@@ -36,15 +36,20 @@ def get_matches(game_name, tag_line):
     matches = query.get_matches_by_game_name(game_name, tag_line)
     # matches[0] = first match, a list of participants
     # matches[0][1] = second participant of first match
-    ms = []
-    for match in matches:
-        match = [dict(m) for m in match]
-        ms.append(match)
 
-    if len(ms) < 1:
-        return 404
+    if matches != 404:
+        ms = []
+        for match in matches:
+            match = [dict(m) for m in match]
+            ms.append(match)
+
+        if len(ms) < 1:
+            return 404
+        
+        return jsonify(ms)
     
-    return jsonify(ms)
+    print(f'[api.py]: 404')
+    return jsonify(404)
 
 
 # functions used to get test data.

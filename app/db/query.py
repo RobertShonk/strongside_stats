@@ -76,10 +76,14 @@ def get_matches_by_game_name(game_name, tag_line):
     db = get_db()
 
     match_ids = db.execute(
-        "SELECT match_id FROM participant WHERE riot_id_game_name LIKE ? AND riot_id_tag_line LIKE ? LIMIT 20",
+        "SELECT match_id FROM participant WHERE riot_id_game_name LIKE ? AND riot_id_tag_line LIKE ? ORDER BY id DESC LIMIT 20",
         (game_name, tag_line,)
     ).fetchall()
 
+    if len(match_ids) == 0:
+        print(f'[query.py]: 404')
+        return 404
+    
     matches = []
 
     for id in match_ids:

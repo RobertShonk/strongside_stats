@@ -62,11 +62,13 @@ def result():
     summoner = requests.get(f"{Constants.SITE['summoner_url']}{summoner_name}/{tag_line}").json()
     matches = requests.get(f"{Constants.SITE['matches_url']}{summoner_name}/{tag_line}").json()
 
-    if summoner != 404 and matches != 404:
-        with open('app\static\dragontail\data\summoner.json') as f:
-            sum_spell_ids = json.load(f)
+    if matches != 404:
+        m_sort = sorted(matches, key=lambda match: match[0]['game_creation'], reverse=True)
 
-        return render_template('site/result.html', summoner=summoner, matches=matches, sum_spell_ids=sum_spell_ids['data'])
+        if summoner != 404 and matches != 404:
+            with open('app\static\dragontail\data\summoner.json') as f:
+                sum_spell_ids = json.load(f)
+
+            return render_template('site/result.html', summoner=summoner, matches=m_sort, sum_spell_ids=sum_spell_ids['data'])
     
     return render_template('site/result.html', summoner=None, matches="404", sum_spell_ids=None)
-    

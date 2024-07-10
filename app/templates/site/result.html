@@ -54,6 +54,7 @@
                                 <p>Defeat</p>
                             {% endif %}
                             <p>{{ player['game_duration']|seconds_to_minutes }}</p>
+                            <p>{{ player['game_creation'] }}</p>
                         {% endif %}
                     {% endfor %}
                 </div>
