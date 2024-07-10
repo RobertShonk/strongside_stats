@@ -90,7 +90,7 @@
                             <div class="player_stats">
                                 <p id="player_kda">{{ player['kills']}}/{{ player['deaths'] }}/{{ player['assists'] }}</p>
                                 <p id="kda_ratio">{{ ((player['kills'] + player['assists'])/player['deaths'])|round(2) }}:1 KDA</p>
-                                <p>8.3 cs/min</p>
+                                <p id="creep_score">{{ ((player['total_minions_killed'] + player['neutral_minions_killed'] + player['total_ally_jungle_minions_killed'] + player['total_enemy_jungle_minions_killed'])/ ((player['game_duration'] // 60) + ((player['game_duration'] % 60)/60)))|round(1) }} cs/min</p>
                             </div>
                         {% endif %}
                     {% endfor %}
