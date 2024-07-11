@@ -84,12 +84,36 @@
                                 </div>
                             </div>
                             <div class="player_match_info_lower">
-                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item0']}}.png">
-                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item1']}}.png">
-                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item2']}}.png">
-                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item3']}}.png">
-                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item4']}}.png">
-                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item5']}}.png">
+                                {% if player['item0'] == 0 %}
+                                    <img class="item_icons" style="background-color: gray;">
+                                {% else %}
+                                    <img class="item_icons" src="\static\dragontail\img\item\{{ player['item0']}}.png">
+                                {% endif %}
+                                {% if player['item1'] == 0 %}
+                                    <img class="item_icons" style="background-color: gray;">
+                                {% else %}
+                                    <img class="item_icons" src="\static\dragontail\img\item\{{ player['item1']}}.png">
+                                {% endif %}
+                                {% if player['item2'] == 0 %}
+                                    <img class="item_icons" style="background-color: gray;">
+                                {% else %}
+                                    <img class="item_icons" src="\static\dragontail\img\item\{{ player['item2']}}.png">
+                                {% endif %}
+                                {% if player['item3'] == 0 %}
+                                    <img class="item_icons" style="background-color: gray;">
+                                {% else %}
+                                    <img class="item_icons" src="\static\dragontail\img\item\{{ player['item3']}}.png">
+                                {% endif %}
+                                {% if player['item4'] == 0 %}
+                                    <img class="item_icons" style="background-color: gray;">
+                                {% else %}
+                                    <img class="item_icons" src="\static\dragontail\img\item\{{ player['item4']}}.png">
+                                {% endif %}
+                                {% if player['item5'] == 0 %}
+                                    <img class="item_icons" style="background-color: gray;">
+                                {% else %}
+                                    <img class="item_icons" src="\static\dragontail\img\item\{{ player['item5']}}.png">
+                                {% endif %}
                             </div>
                         </div>
                         <div class="player_stats">
