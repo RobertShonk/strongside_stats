@@ -43,7 +43,7 @@
     <div id="matches">
         <h2>Recent Matches</h2>
         {% for match in matches %}
-            {% if match[0]['game_mode'] == 'ARAM' or match[0]['game_mode'] == 'CLASSIC' %}
+            {% if match[0]['game_mode'] == 'ARAM' or match[0]['game_mode'] == 'CLASSIC' or match[0]['game_mode'] == 'CHERRY' %}
             <div class="match">
                     {% for player in match %}
                         {% if player['riot_id_game_name'] == summoner['game_name'] %}
@@ -55,7 +55,7 @@
                                     <p>{{ player['game_creation']|epoch_to_date }}</p>
                                 </div>
                             {% else %}
-                                <div class="match_meta_data" style="background-color: firebrick;">
+                                <div class="match_meta_data" style="background-color: red;">
                                     <p>{{ player['game_mode'] }}</p>
                                     <p>Defeat!</p>
                                     <p>{{ player['game_duration']|seconds_to_minutes }}</p>
@@ -94,7 +94,11 @@
                         </div>
                         <div class="player_stats">
                             <p id="player_kda">{{ player['kills']}}/{{ player['deaths'] }}/{{ player['assists'] }}</p>
-                            <p id="kda_ratio">{{ ((player['kills'] + player['assists'])/player['deaths'])|round(2) }}:1 KDA</p>
+                            {% if player['deaths'] == 0 %}
+                                <p id="kda_ratio">Perfect</p>
+                            {% else %}
+                                <p id="kda_ratio">{{ ((player['kills'] + player['assists'])/player['deaths'])|round(2) }}:1 KDA</p>
+                            {% endif %}
                             <p id="creep_score">{{ ((player['total_minions_killed'] + player['neutral_minions_killed'] + player['total_ally_jungle_minions_killed'] + player['total_enemy_jungle_minions_killed'])/ ((player['game_duration'] // 60) + ((player['game_duration'] % 60)/60)))|round(1) }} cs/min</p>
                         </div>
                     {% endif %}

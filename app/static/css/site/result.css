@@ -32,14 +32,6 @@
     margin-right: 1rem;
 }
 
-#match_meta_data_win {
-    background-color: 'blue';
-}
-
-#match_meta_data_loss {
-    background-color: 'firebrick';
-}
-
 .player_images {
     margin-top: 0.75rem;
     margin-left: 0.5rem;
