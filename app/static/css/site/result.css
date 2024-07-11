@@ -89,10 +89,15 @@
     text-overflow: ellipsis;
 }
 
-.wteam2 {
+.team2 {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.team_tag {
+    text-decoration: none;
+    color: black;
 }
 
 .team_icon {

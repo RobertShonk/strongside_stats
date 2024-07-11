@@ -29,7 +29,7 @@ def result():
         summoner = riot_api.get_summoner(account['puuid'])
         league = riot_api.get_league(summoner['id'])
 
-        if summoner and account and len(league) > 0:
+        if summoner and account:
             res1 = query.insert_summoner(account, summoner, league)
 
             if res1 == 200 or res1 == 201:
@@ -44,6 +44,7 @@ def result():
                         matches.append(m)
 
                     if len(matches) > 0:
+                        print('here')
                         res2 = query.insert_matches(matches)
 
                         res3 = 0

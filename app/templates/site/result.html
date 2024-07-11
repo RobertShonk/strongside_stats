@@ -48,14 +48,14 @@
                     {% for player in match %}
                         {% if player['riot_id_game_name'] == summoner['game_name'] %}
                             {% if player['win'] == 1 %}
-                                <div class="match_meta_data" style="background-color: blue;">
+                                <div class="match_meta_data" style="background-color: rgb(167, 167, 255);">
                                     <p>{{ player['game_mode'] }}</p>
                                     <p>Victory!</p>
                                     <p>{{ player['game_duration']|seconds_to_minutes }}</p>
                                     <p>{{ player['game_creation']|epoch_to_date }}</p>
                                 </div>
                             {% else %}
-                                <div class="match_meta_data" style="background-color: red;">
+                                <div class="match_meta_data" style="background-color: rgb(240, 71, 71);">
                                     <p>{{ player['game_mode'] }}</p>
                                     <p>Defeat!</p>
                                     <p>{{ player['game_duration']|seconds_to_minutes }}</p>
@@ -129,18 +129,18 @@
                 {% endfor %}
                 <div class="teams">
                     <div class="team1">
-                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[0]['champion_name'] }}.png">{{ match[0]['riot_id_game_name'] }}<br>
-                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[1]['champion_name'] }}.png">{{ match[1]['riot_id_game_name'] }}<br>
-                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[2]['champion_name'] }}.png">{{ match[2]['riot_id_game_name'] }}<br>
-                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[3]['champion_name'] }}.png">{{ match[3]['riot_id_game_name'] }}<br>
-                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[4]['champion_name'] }}.png">{{ match[4]['riot_id_game_name'] }}<br>
+                        <a class="team_tag" href="{{ url_for('site.result', summoner_name=match[0]['riot_id_game_name'], tag_line=match[0]['riot_id_tag_line']) }}"><img class="team_icon" src="\static\dragontail\img\champion\{{ match[0]['champion_name'] }}.png">{{ match[0]['riot_id_game_name'] }}</a><br>
+                        <a class="team_tag" href="{{ url_for('site.result', summoner_name=match[1]['riot_id_game_name'], tag_line=match[1]['riot_id_tag_line']) }}"><img class="team_icon" src="\static\dragontail\img\champion\{{ match[1]['champion_name'] }}.png">{{ match[1]['riot_id_game_name'] }}</a><br>
+                        <a class="team_tag" href="{{ url_for('site.result', summoner_name=match[2]['riot_id_game_name'], tag_line=match[2]['riot_id_tag_line']) }}"><img class="team_icon" src="\static\dragontail\img\champion\{{ match[2]['champion_name'] }}.png">{{ match[2]['riot_id_game_name'] }}</a><br>
+                        <a class="team_tag" href="{{ url_for('site.result', summoner_name=match[3]['riot_id_game_name'], tag_line=match[3]['riot_id_tag_line']) }}"><img class="team_icon" src="\static\dragontail\img\champion\{{ match[3]['champion_name'] }}.png">{{ match[3]['riot_id_game_name'] }}</a><br>
+                        <a class="team_tag" href="{{ url_for('site.result', summoner_name=match[4]['riot_id_game_name'], tag_line=match[4]['riot_id_tag_line']) }}"><img class="team_icon" src="\static\dragontail\img\champion\{{ match[4]['champion_name'] }}.png">{{ match[4]['riot_id_game_name'] }}</a><br>
                     </div>
                     <div class="team2">
-                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[5]['champion_name'] }}.png">{{ match[5]['riot_id_game_name'] }}<br>
-                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[6]['champion_name'] }}.png">{{ match[6]['riot_id_game_name'] }}<br>
-                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[7]['champion_name'] }}.png">{{ match[7]['riot_id_game_name'] }}<br>
-                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[8]['champion_name'] }}.png">{{ match[8]['riot_id_game_name'] }}<br>
-                        <img class="team_icon" src="\static\dragontail\img\champion\{{ match[9]['champion_name'] }}.png">{{ match[9]['riot_id_game_name'] }}<br>
+                        <a class="team_tag" href="{{ url_for('site.result', summoner_name=match[5]['riot_id_game_name'], tag_line=match[5]['riot_id_tag_line']) }}"><img class="team_icon" src="\static\dragontail\img\champion\{{ match[5]['champion_name'] }}.png">{{ match[5]['riot_id_game_name'] }}</a><br>
+                        <a class="team_tag" href="{{ url_for('site.result', summoner_name=match[6]['riot_id_game_name'], tag_line=match[6]['riot_id_tag_line']) }}"><img class="team_icon" src="\static\dragontail\img\champion\{{ match[6]['champion_name'] }}.png">{{ match[6]['riot_id_game_name'] }}</a><br>
+                        <a class="team_tag" href="{{ url_for('site.result', summoner_name=match[7]['riot_id_game_name'], tag_line=match[7]['riot_id_tag_line']) }}"><img class="team_icon" src="\static\dragontail\img\champion\{{ match[7]['champion_name'] }}.png">{{ match[7]['riot_id_game_name'] }}</a><br>
+                        <a class="team_tag" href="{{ url_for('site.result', summoner_name=match[8]['riot_id_game_name'], tag_line=match[8]['riot_id_tag_line']) }}"><img class="team_icon" src="\static\dragontail\img\champion\{{ match[8]['champion_name'] }}.png">{{ match[8]['riot_id_game_name'] }}</a><br>
+                        <a class="team_tag" href="{{ url_for('site.result', summoner_name=match[9]['riot_id_game_name'], tag_line=match[9]['riot_id_tag_line']) }}"><img class="team_icon" src="\static\dragontail\img\champion\{{ match[9]['champion_name'] }}.png">{{ match[9]['riot_id_game_name'] }}</a><br>
                     </div>
                 </div>
                 <div class="drop_down">
