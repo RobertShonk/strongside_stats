@@ -45,56 +45,60 @@
         {% for match in matches %}
             {% if match[0]['game_mode'] == 'ARAM' or match[0]['game_mode'] == 'CLASSIC' %}
             <div class="match">
-                <div class="match_meta_data">
                     {% for player in match %}
                         {% if player['riot_id_game_name'] == summoner['game_name'] %}
-                            <p>{{ player['game_mode'] }}</p>
                             {% if player['win'] == 1 %}
-                                <p>Victory!</p>
+                                <div class="match_meta_data" style="background-color: blue;">
+                                    <p>{{ player['game_mode'] }}</p>
+                                    <p>Victory!</p>
+                                    <p>{{ player['game_duration']|seconds_to_minutes }}</p>
+                                    <p>{{ player['game_creation']|epoch_to_date }}</p>
+                                </div>
                             {% else %}
-                                <p>Defeat</p>
+                                <div class="match_meta_data" style="background-color: firebrick;">
+                                    <p>{{ player['game_mode'] }}</p>
+                                    <p>Defeat!</p>
+                                    <p>{{ player['game_duration']|seconds_to_minutes }}</p>
+                                    <p>{{ player['game_creation']|epoch_to_date }}</p>
+                                </div>
                             {% endif %}
-                            <p>{{ player['game_duration']|seconds_to_minutes }}</p>
-                            <p>{{ player['game_creation']|epoch_to_date }}</p>
                         {% endif %}
                     {% endfor %}
-                </div>
-                <div class="player_match_info">
-                    {% for player in match %}
-                        {% if player['riot_id_game_name'] == summoner['game_name'] %}
-                            <div class="player_images">
-                                <div class="player_match_info_upper">
-                                    <img class="player_champ_icon" src="\static\dragontail\img\champion\{{ player['champion_name']}}.png">
-                                    <div class="player_summoner_spells">
-                                        {% for sum in sum_spell_ids.values() %}
-                                            {% if sum['key']|int == player['summoner1_id']|int %}
-                                                <img class="summoner_spell_icons" src="\static\dragontail\img\summoner_spells\{{ sum['image']['full']}}"><br>
-                                            {% endif %}
-                                        {% endfor %}
-                                        {% for sum in sum_spell_ids.values() %}
-                                            {% if sum['key']|int == player['summoner2_id']|int %}
-                                                <img class="summoner_spell_icons" src="\static\dragontail\img\summoner_spells\{{ sum['image']['full']}}"><br>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                <div class="player_match_info_lower">
-                                    <img class="item_icons" src="\static\dragontail\img\item\{{ player['item0']}}.png">
-                                    <img class="item_icons" src="\static\dragontail\img\item\{{ player['item1']}}.png">
-                                    <img class="item_icons" src="\static\dragontail\img\item\{{ player['item2']}}.png">
-                                    <img class="item_icons" src="\static\dragontail\img\item\{{ player['item3']}}.png">
-                                    <img class="item_icons" src="\static\dragontail\img\item\{{ player['item4']}}.png">
-                                    <img class="item_icons" src="\static\dragontail\img\item\{{ player['item5']}}.png">
+                
+                {% for player in match %}
+                    {% if player['riot_id_game_name'] == summoner['game_name'] %}
+                        <div class="player_images">
+                            <div class="player_match_info_upper">
+                                <img class="player_champ_icon" src="\static\dragontail\img\champion\{{ player['champion_name']}}.png">
+                                <div class="player_summoner_spells">
+                                    {% for sum in sum_spell_ids.values() %}
+                                        {% if sum['key']|int == player['summoner1_id']|int %}
+                                            <img class="summoner_spell_icons" src="\static\dragontail\img\summoner_spells\{{ sum['image']['full'] }}"><br>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for sum in sum_spell_ids.values() %}
+                                        {% if sum['key']|int == player['summoner2_id']|int %}
+                                            <img class="summoner_spell_icons" src="\static\dragontail\img\summoner_spells\{{ sum['image']['full']}}"><br>
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                             </div>
-                            <div class="player_stats">
-                                <p id="player_kda">{{ player['kills']}}/{{ player['deaths'] }}/{{ player['assists'] }}</p>
-                                <p id="kda_ratio">{{ ((player['kills'] + player['assists'])/player['deaths'])|round(2) }}:1 KDA</p>
-                                <p id="creep_score">{{ ((player['total_minions_killed'] + player['neutral_minions_killed'] + player['total_ally_jungle_minions_killed'] + player['total_enemy_jungle_minions_killed'])/ ((player['game_duration'] // 60) + ((player['game_duration'] % 60)/60)))|round(1) }} cs/min</p>
+                            <div class="player_match_info_lower">
+                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item0']}}.png">
+                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item1']}}.png">
+                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item2']}}.png">
+                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item3']}}.png">
+                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item4']}}.png">
+                                <img class="item_icons" src="\static\dragontail\img\item\{{ player['item5']}}.png">
                             </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
+                        </div>
+                        <div class="player_stats">
+                            <p id="player_kda">{{ player['kills']}}/{{ player['deaths'] }}/{{ player['assists'] }}</p>
+                            <p id="kda_ratio">{{ ((player['kills'] + player['assists'])/player['deaths'])|round(2) }}:1 KDA</p>
+                            <p id="creep_score">{{ ((player['total_minions_killed'] + player['neutral_minions_killed'] + player['total_ally_jungle_minions_killed'] + player['total_enemy_jungle_minions_killed'])/ ((player['game_duration'] // 60) + ((player['game_duration'] % 60)/60)))|round(1) }} cs/min</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
                 <div class="teams">
                     <div class="team1">
                         <img class="team_icon" src="\static\dragontail\img\champion\{{ match[0]['champion_name'] }}.png">{{ match[0]['riot_id_game_name'] }}<br>
@@ -110,6 +114,9 @@
                         <img class="team_icon" src="\static\dragontail\img\champion\{{ match[8]['champion_name'] }}.png">{{ match[8]['riot_id_game_name'] }}<br>
                         <img class="team_icon" src="\static\dragontail\img\champion\{{ match[9]['champion_name'] }}.png">{{ match[9]['riot_id_game_name'] }}<br>
                     </div>
+                </div>
+                <div class="drop_down">
+                    <p>V</p>
                 </div>
             </div>
             {% endif %}

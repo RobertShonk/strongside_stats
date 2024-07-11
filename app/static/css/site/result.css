@@ -20,23 +20,34 @@
 
 .match {
     display: grid;
-    grid-template-columns: 20% 40% 40%;
+    grid-template-columns: 15% 25% 20% 35% 5%;
     background-color:white;
     border-radius: 10px;
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-
+    padding-bottom: 0rem;
     margin-bottom: .75rem;
 }
 
 .match_meta_data {
-    margin-left: 1rem;
+    padding-left: 1rem;
+    margin-right: 1rem;
+}
+
+#match_meta_data_win {
+    background-color: 'blue';
+}
+
+#match_meta_data_loss {
+    background-color: 'firebrick';
+}
+
+.player_images {
     margin-top: 0.75rem;
+    margin-left: 0.5rem;
 }
 
 .player_match_info {
     display: grid;
-    grid-template-columns: 65% auto;
+    grid-template-columns: 60% 40%;
 }
 
 .player_match_info_upper {
@@ -68,18 +79,25 @@
     margin-top: 1rem;
 }
 
-.teams {
-    display: grid;
-    grid-template-columns: auto auto;
+.player_stats {
+    padding-top: 1rem;
 }
 
-#team1 {
+.teams {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-top: 0.25rem;
+    padding-right: 0.5rem;
+    padding-top: 0.1rem;
+}
+
+.team1 {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-#team2 {
+.wteam2 {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
