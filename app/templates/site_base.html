@@ -10,7 +10,7 @@
 <body>
     <nav id="navbar">
         <div id="nav_links">
-            <a class="nav_link" href="#">Strongside Stats</a>
+            <a class="nav_link" href="{{ url_for('site.index') }}">Strongside Stats</a>
         </div>
         <form id="nav_form" action="{{ url_for('site.result') }}" method="get">
             <input class="nav_form_input" id="summoner_name" type="text" name="summoner_name" placeholder="Summoner Name" required>
