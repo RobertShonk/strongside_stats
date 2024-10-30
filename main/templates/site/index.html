@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Player Stats{% endblock %}
+
+{% block content %}
+    <form class="home_search" action="{{ url_for('site.index') }}" method="get">
+        <table>
+            <tr>
+                <td><label for="summoner_name">Summoner name</label></td>
+                <td><input type="text" id="summoner_name" name="summoner_name" placeholder="Summoner Name"></td>
+            </tr>
+            <tr>
+                <td><label for="tagline">Tagline</label></td>
+                <td><input type="text" id="tagline" name="tag_line" placeholder="NA1"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="enter"></td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

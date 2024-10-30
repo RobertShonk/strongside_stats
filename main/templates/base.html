@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - Strongside Stats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="nav">
+        <a class="home_link" href="#">Strongside Stats</a>
+        {% block nav_search %}{% endblock %}
+    </div>
+    
+    <div class="content">
+        <div class="left_content">
+
+        </div>
+        <div class="main">
+            {% block content %}{% endblock %}
+        </div>
+        <div class="right_content">
+
+        </div>
+    </div>
+
+    <footer></footer>
+</body>
+</html>

@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 20% auto 20%;
+}
+
+.nav {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: blue;
+    height: 3rem;
+}
+
+.home_link {
+    color: white;
+}
+
+.player_card {
+    margin-top: auto;
+    background-color: lightblue;
+}
+
+.match {
+    background-color: lightblue;
+    height: 100%;
+}
+
+.header {
+    color:white;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
