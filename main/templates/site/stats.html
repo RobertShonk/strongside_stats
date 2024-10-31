@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Player Stats{% endblock %}
+
+{% block nav_search %}
+    <form class="nav_search">
+        <input type="text" id="search_name" name="search_name" placeholder="Enter name">
+        <input type="submit" value="Enter">
+    </form>
+{% endblock %}
+
+{% block content %}
+    <p>Name: {{ summoner_name }}</p>
+    <p>Tagline: {{ tagline }}</p>
+    <form class="stats_update" action="{{ url_for('site.stats') }}" method="post">
+        <input type="submit" value="Update">
+    </form>
+{% endblock %}
