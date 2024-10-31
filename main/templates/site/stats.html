@@ -10,9 +10,21 @@
 {% endblock %}
 
 {% block content %}
-    <p>Name: {{ summoner_name }}</p>
-    <p>Tagline: {{ tagline }}</p>
-    <form class="stats_update" action="{{ url_for('site.stats') }}" method="post">
-        <input type="submit" value="Update">
-    </form>
+    <div class="player_card">
+        {% if method == 'POST' %}
+            <p>{{ data[1]['queueType'] }}: {{ data[1]['tier'] }} {{ data[1]['rank'] }}</p>
+        {% else %}
+            <p>{{ data['summoner_name']}}</p>
+            {% if method == 'redirect' %}
+                <p>Error using riot api.</p>
+            {% endif %}
+        {% endif %}
+
+        <form class="stats_update" action="{{ url_for('site.stats') }}" method="post">
+            <input type="text" name="summoner_name" value="{{ data['summoner_name'] }}" hidden>
+            <input type="text" name="tagline" value="{{ data['tagline'] }}" hidden>
+            <input type="submit" value="Update">
+        </form>
+    </div>
+    
 {% endblock %}
