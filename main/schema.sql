@@ -17,7 +17,9 @@ CREATE TABLE league (
     inactive INTEGER,
     freshBlood INTEGER,
     hotStreak INTEGER,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    summoner_name TEXT NOT NULL, -- my addition
+    tagline TEXT NOT NULL -- my addition
 );
 
 CREATE TABLE metadata (
