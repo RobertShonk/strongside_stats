@@ -30,7 +30,8 @@ def stats():
         if leagues[1] == 200:
             code = util.insert_leagues(leagues[0], summoner_name, tagline)
             if code == 202:
-                return render_template('site/stats.html', data=leagues[0], method=request.method)
+                matches = riot_api.get_matches(summoner_name, tagline)
+                return render_template('site/stats.html', data=leagues[0], matches=matches, method=request.method)
             else:
                 return f'{session['summoner_name']}'
 
@@ -53,7 +54,7 @@ def stats():
 
     # if exists, render template with player info
     if data:
-        return render_template('site/stats.html', data=data, method=request.method, summoner_name=summoner_name, tagline=tagline)
+        return render_template('site/stats.html', data=data, matches=[], method=request.method)
 
 
     return render_template('site/stats.html', data=[{'summoner_name': summoner_name, 'tagline': tagline}], method=request.method)
