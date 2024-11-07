@@ -92,6 +92,7 @@ def get_matches(summoner_name, tagline):
         # get matches
         for id in match_ids[0]:
             matches.append(get_match(id))
+            sleep(1/20) # 20 request per second
         
         return matches
 
