@@ -46,19 +46,19 @@ def stats():
     db = get_db()
     leagues = db.execute(
         """
-        SELECT * FROM league WHERE summoner_name = ? AND tagline = ?
+        SELECT * FROM league WHERE summoner_name LIKE ? AND tagline LIKE ?
         """,
         (summoner_name, tagline)
     ).fetchall()
+    print(leagues)
 
     metadata_ids = db.execute('SELECT metadata_id FROM participant WHERE summonerName = ? LIMIT 20', (summoner_name,)).fetchall()
     metadata = []
     for id in metadata_ids:
-        metadata.append(db.execute('SELECT * FROM metadata WHERE id = ?', (id,))).fetchone()
+        metadata.append(db.execute('SELECT * FROM metadata WHERE id = ?', (id['metadata_id'],)).fetchone())
 
     participants = []
     for match in metadata:
-        participants.append(db.execute('SELECT * FROM participant WHERE metadata_id = ?', (match['id'],))).fetchall()
-
+        participants.append(db.execute('SELECT * FROM participant WHERE metadata_id = ?', (match['id'],)).fetchall())
 
     return render_template('site/stats.html', leagues=leagues, metadata=metadata, participants=participants)
