@@ -32,7 +32,7 @@ def stats():
             if code == 202:
                 matches = riot_api.get_matches(summoner_name, tagline)
                 util.insert_matches(matches)
-                return render_template('site/stats.html', leagues=leagues[0], matches=matches, method=request.method)
+                return redirect(url_for('site.stats'))
             else:
                 return f'{session['summoner_name']}'
 
@@ -41,8 +41,6 @@ def stats():
     # get
     summoner_name = request.args.get('summoner_name')
     tagline = request.args.get('tagline')
-    session['summoner_name'] = request.args.get('summoner_name')
-    session['tagline'] = request.args.get('tagline')
 
     # check db if league exists for player
     db = get_db()
@@ -62,9 +60,5 @@ def stats():
     for match in metadata:
         participants.append(db.execute('SELECT * FROM participant WHERE metadata_id = ?', (match['id'],))).fetchall()
 
-    # if exists, render template with player info
-    if len(leagues) > 0:
-        return render_template('site/stats.html', leagues=leagues, metadata=[], participants=participants,method=request.method)
 
-
-    return render_template('site/stats.html', data=[{'summoner_name': summoner_name, 'tagline': tagline}], method=request.method)
+    return render_template('site/stats.html', leagues=leagues, metadata=metadata, participants=participants)

@@ -11,18 +11,16 @@
 
 {% block content %}
     <div class="player_card">
-        <p>{{ session['summoner_name'] }}</p>
-        {% if method == 'POST' %}
+        <p>{{ request.args.get('summoner_name') }}</p>
+        {% if leagues|length > 0 %}
             <p>{{ leagues[1]['queueType'] }}: {{ leagues[1]['tier'] }} {{ leagues[1]['rank'] }}</p>
         {% else %}
-            {% if method == 'redirect' %}
-                <p>Error using riot api. Summoner name and tagline may be incorrect or player may not exist.</p>
-            {% endif %}
+            <p>We don't have this player's ranked data. Try updating or make sure they have played their placement matches.</p>
         {% endif %}
 
         <form class="stats_update" action="{{ url_for('site.stats') }}" method="post">
-            <input type="text" name="summoner_name" value="{{ session['summoner_name'] }}" hidden>
-            <input type="text" name="tagline" value="{{ session['tagline'] }}" hidden>
+            <input type="text" name="summoner_name" value="{{ request.args.get('summoner_name') }}" hidden>
+            <input type="text" name="tagline" value="{{ request.args.get('tagline') }}" hidden>
             <input type="submit" value="Update">
         </form>
     </div>
