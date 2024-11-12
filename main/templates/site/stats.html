@@ -11,24 +11,25 @@
 
 {% block content %}
     <div class="player_card">
-        <p>{{ request.args.get('summoner_name') }}</p>
+        <p>{{ session['summoner_name'] }}</p>
         {% if leagues|length > 0 %}
-            <p>{{ leagues[1]['queueType'] }}: {{ leagues[1]['tier'] }} {{ leagues[1]['rank'] }}</p>
+            <p>{{ leagues[0]['queueType'] }}: {{ leagues[0]['tier'] }} {{ leagues[0]['rank'] }}</p>
         {% else %}
             <p>We don't have this player's ranked data. Try updating or make sure they have played their placement matches.</p>
         {% endif %}
 
         <form class="stats_update" action="{{ url_for('site.stats') }}" method="post">
-            <input type="text" name="summoner_name" value="{{ request.args.get('summoner_name') }}" hidden>
-            <input type="text" name="tagline" value="{{ request.args.get('tagline') }}" hidden>
+            <input type="text" name="summoner_name" value="{{ session['summoner_name'] }}" hidden>
+            <input type="text" name="tagline" value="{{ session['tagline'] }}" hidden>
             <input type="submit" value="Update">
         </form>
     </div>
 
     <div class="matches">
-        {% for match in metadata %}
+        {% for i in range(metadata|length) %}
             <div class="match">
-                {{ metadata['platformId'] }}
+                {{ metadata[i]['platformId'] }}
+                {{ participants[i][0]['riotIdGameName'] }}
             </div>
         {% endfor %}
     </div>

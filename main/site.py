@@ -32,16 +32,29 @@ def stats():
             if code == 202:
                 matches = riot_api.get_matches(summoner_name, tagline)
                 util.insert_matches(matches)
+                session['redirect'] = True
                 return redirect(url_for('site.stats'))
             else:
-                return f'{session['summoner_name']}'
+                return f'[site.py]: {session['summoner_name']}'
 
         return render_template('site/stats.html', method='redirect')
 
+    summoner_name = ''
+    tagline = ''
     # get
-    summoner_name = request.args.get('summoner_name')
-    tagline = request.args.get('tagline')
-
+    if 'redirect' in session.keys():
+        if session['redirect'] is True:
+            summoner_name = session['summoner_name']
+            tagline = session['tagline']
+            print(f'redirect: {session['redirect']}')
+            session.pop('redirect')
+    else:
+        session.clear()
+        summoner_name = request.args.get('summoner_name')
+        tagline = request.args.get('tagline')
+        session['summoner_name'] = summoner_name
+        session['tagline'] = tagline
+    
     # check db if league exists for player
     db = get_db()
     leagues = db.execute(
@@ -50,9 +63,8 @@ def stats():
         """,
         (summoner_name, tagline)
     ).fetchall()
-    print(leagues)
 
-    metadata_ids = db.execute('SELECT metadata_id FROM participant WHERE summonerName = ? LIMIT 20', (summoner_name,)).fetchall()
+    metadata_ids = db.execute('SELECT metadata_id FROM participant WHERE summonerName LIKE ? LIMIT 20', (summoner_name,)).fetchall()
     metadata = []
     for id in metadata_ids:
         metadata.append(db.execute('SELECT * FROM metadata WHERE id = ?', (id['metadata_id'],)).fetchone())

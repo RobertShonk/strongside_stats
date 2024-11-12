@@ -65,16 +65,19 @@ def insert_matches(matches):
                  match['info']['gameType'], match['info']['gameVersion'], match['info']['mapId'], match['info']['platformId'], match['info']['queueId'])
             )
             db.commit()
-
+            print(match['metadata']['matchId'])
             # insert each participant
             # get metadata_id that we just inserted
             many_participants = []
             metadata_id = db.execute('SELECT id FROM metadata WHERE matchId = ?', (match['metadata']['matchId'],)).fetchone()
             participants = match['info']['participants']
             for part in participants:
-                many_participants.append(partic_ins_data(part, metadata_id['id']))
+                if len(part.keys()) == 133: # makes sure that data will be same size as table.
+                    many_participants.append(partic_ins_data(part, metadata_id['id']))
+
             db.executemany(create_partic_insert(), many_participants)
             db.commit()
+               
         
 
 
@@ -122,6 +125,6 @@ def partic_ins_data(participant, metadata_id):
     data.append(participant['perks']['styles'][0]['selections'][2]['perk'])
     data.append(participant['perks']['styles'][1]['style'])
     data.append(participant['perks']['styles'][1]['selections'][0]['perk'])
-    data.append(participant['perks']['styles'][1]['selections'][1]['perk'])
+    data.append(participant['perks']['styles'][1]['selections'][1]['perk']) 
 
     return data
