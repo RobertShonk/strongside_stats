@@ -3,8 +3,9 @@
 {% block title %}Player Stats{% endblock %}
 
 {% block nav_search %}
-    <form class="nav_search">
-        <input type="text" id="search_name" name="search_name" placeholder="Enter name">
+    <form class="nav_search" action="{{ url_for('site.stats') }}" method="get">
+        <input type="text" id="summoner_name" name="summoner_name" placeholder="Summoner name" required>
+        <input type="text" id="tagline" name="tagline" placeholder="NA1" required>
         <input type="submit" value="Enter">
     </form>
 {% endblock %}
