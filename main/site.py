@@ -27,9 +27,11 @@ def stats():
 
         leagues = riot_api.get_league(summoner_name, tagline)
         account = riot_api.get_account(summoner_name, tagline)
-        summoner = riot_api.get_summoner(account[0]['puuid'])
+
+        if account[1] == 200:
+            summoner = riot_api.get_summoner(account[0]['puuid'])
         
-        if leagues[1] == 200:
+        if leagues[1] == 200 and summoner[1] == 200:
             code = util.insert_leagues(leagues[0], summoner_name, tagline, summoner[0]['profileIconId'], summoner[0]['summonerLevel'])
             print(f'[stats.site]: profileIconId {summoner[0]['profileIconId']}')
             if code == 202:
@@ -39,6 +41,8 @@ def stats():
                 return redirect(url_for('site.stats'))
             else:
                 return f'[site.py]: {session['summoner_name']}'
+        else:
+            return f'[site.py] Error using Riot API using this data<br> Summoner name: {summoner_name}, Tagline: {tagline}'
 
         return render_template('site/stats.html', method='redirect')
 

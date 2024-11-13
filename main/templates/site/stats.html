@@ -15,7 +15,9 @@
         <div class="player_card_info">
             <div id="player_text">
                 <h2>{{ session['summoner_name'] }}</h2>
-                <p>Lv: {{ leagues[0]['summonerLevel'] }}</p>
+                {% if leagues|length > 0 %}
+                    <p>Lv: {{ leagues[0]['summonerLevel'] }}</p>
+                {% endif %}
             </div>
             
             {% if leagues|length > 0 %}
