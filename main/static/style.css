@@ -25,12 +25,35 @@ body {
     background-color: lightblue;
 }
 
+.player_card_info {
+    display: grid;
+    grid-template-columns: 25% auto;
+}
+
+.profile_icon {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 1rem;
+}
+
+#player_text {
+    margin-left: 5px;
+}
+
+#icon {
+    margin-top: 1.25rem;
+}
+
 .match {
     display: grid;
     grid-template-columns: 20% auto 30%;
-    background-color: lightcyan;
+    background-color: lightskyblue;
     margin: 5px;
     height: 100%;
+}
+
+.match_metadata {
+    margin-top: 2.5rem;
 }
 
 .top_playerdata {
@@ -38,9 +61,23 @@ body {
     grid-template-columns: 15% 10% 30% auto;
 }
 
+#champ_icon {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    margin-top: 1rem;
+}
+
+.item_icons {
+    height: 2.25rem;
+    width: 2.25rem;
+    margin-bottom: 5px;
+}
+
 .match_teams {
     display: grid;
     grid-template-columns: 50% 50%;
+    margin-top: 1rem;
 }
 
 .team1 {

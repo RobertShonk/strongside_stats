@@ -32,4 +32,7 @@ def create_app(test_config=None):
     app.register_blueprint(site.bp)
     app.add_url_rule('/', endpoint='index')
 
+    from .jinja_filters import date
+    app.add_template_filter(date)
+
     return app

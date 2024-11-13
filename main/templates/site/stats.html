@@ -13,9 +13,16 @@
 {% block content %}
     <div class="player_card">
         <div class="player_card_info">
-            <p>{{ session['summoner_name'] }}</p>
+            <div id="player_text">
+                <h2>{{ session['summoner_name'] }}</h2>
+                <p>Lv: {{ leagues[0]['summonerLevel'] }}</p>
+            </div>
+            
             {% if leagues|length > 0 %}
-                <p>Level {{ leagues[0]['summonerLevel'] }} Icon {{ leagues[0]['profileIconId'] }}</p>
+                {% set filename = '/riot_assets/profileIcon/' + leagues[0]['profileIconId']|string + '.png' %}
+                <div id="icon">
+                    <img class="profile_icon" src="{{ url_for('static', filename=filename) }}" alt="profileIcon">
+                </div>
             {% endif %}
             
         </div>
@@ -25,7 +32,6 @@
                         {% if league['queueType'] == 'RANKED_SOLO_5x5' %}
                             <h3>Solo/Duo</h3>
                             <p>{{ league['tier'] }} {{ league['rank'] }} - {{ league['leaguePoints'] }} LP</p>
-                            <p>{{ league['profileIconId'] }}</p>
                         {% endif %}
                     {% endfor %}
                         
@@ -54,8 +60,8 @@
         {% for i in range(metadata|length) %}
             <div class="match">
                 <div class="match_metadata">
-                    {{ metadata[i]['platformId'] }}<br>
-                    {{ metadata[i]['gameCreation'] }}<br>
+                    {{ metadata[i]['gameMode'] }}<br>
+                    {{ metadata[i]['gameCreation']|date }}<br>
                     {{ metadata[i]['gameDuration'] }}
                 </div>
                 {% for j in range(participants[i]|length) %}
@@ -63,7 +69,8 @@
                         <div class="match_playerdata">
                             <div class="top_playerdata">
                                 <div class="champ_icon">
-                                    <p>{{ participants[i][j]['championName'] }}</p>
+                                    {% set champName = '/riot_assets/champion/' + participants[i][j]['championName'] + '.png' %}
+                                    <img id="champ_icon" src="{{ url_for('static', filename=champName) }}">
                                 </div>
                                 <div class="summoner_spells">
                                     <p>{{ participants[i][j]['summoner1Id'] }}</p>
@@ -84,7 +91,18 @@
                             </div>
                             <div class="bot_playerdata">
                                 <div class="items">
-                                    {{ participants[i][j]['item0'] }}|{{ participants[i][j]['item1'] }}|{{ participants[i][j]['item2'] }}|{{ participants[i][j]['item3'] }}|{{ participants[i][j]['item4'] }}|{{ participants[i][j]['item5'] }}
+                                    {% set item0 = '/riot_assets/item/' + participants[i][j]['item0']|string + '.png' %}
+                                    {% set item1 = '/riot_assets/item/' + participants[i][j]['item1']|string + '.png' %}
+                                    {% set item2 = '/riot_assets/item/' + participants[i][j]['item2']|string + '.png' %}
+                                    {% set item3 = '/riot_assets/item/' + participants[i][j]['item3']|string + '.png' %}
+                                    {% set item4 = '/riot_assets/item/' + participants[i][j]['item4']|string + '.png' %}
+                                    {% set item5 = '/riot_assets/item/' + participants[i][j]['item5']|string + '.png' %}
+                                    <img class="item_icons" src="{{ url_for('static', filename=item0) }}">
+                                    <img class="item_icons" src="{{ url_for('static', filename=item1) }}">
+                                    <img class="item_icons" src="{{ url_for('static', filename=item2) }}">
+                                    <img class="item_icons" src="{{ url_for('static', filename=item3) }}">
+                                    <img class="item_icons" src="{{ url_for('static', filename=item4) }}">
+                                    <img class="item_icons" src="{{ url_for('static', filename=item5) }}">
                                 </div>
                             </div>       
                         </div>
