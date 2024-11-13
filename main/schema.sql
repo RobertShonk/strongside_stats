@@ -19,7 +19,9 @@ CREATE TABLE league (
     hotStreak INTEGER,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     summoner_name TEXT NOT NULL, -- my addition
-    tagline TEXT NOT NULL -- my addition
+    tagline TEXT NOT NULL, -- my addition
+    profileIconId INTEGER, -- from riot api summoner v4
+    summonerLevel INTEGER -- from riot api summoner v4
 );
 
 CREATE TABLE metadata (

@@ -26,9 +26,12 @@ def stats():
         session['tagline'] = tagline
 
         leagues = riot_api.get_league(summoner_name, tagline)
+        account = riot_api.get_account(summoner_name, tagline)
+        summoner = riot_api.get_summoner(account[0]['puuid'])
         
         if leagues[1] == 200:
-            code = util.insert_leagues(leagues[0], summoner_name, tagline)
+            code = util.insert_leagues(leagues[0], summoner_name, tagline, summoner[0]['profileIconId'], summoner[0]['summonerLevel'])
+            print(f'[stats.site]: profileIconId {summoner[0]['profileIconId']}')
             if code == 202:
                 matches = riot_api.get_matches(summoner_name, tagline)
                 util.insert_matches(matches)

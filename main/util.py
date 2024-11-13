@@ -4,7 +4,7 @@ from main.db import get_db
 
 # leagues will be a list, one for each queueType (solo/duo, flex, etc)
 # could potentially be empty list which would mean the player has no current season ranked data at all
-def insert_leagues(leagues, summoner_name, tagline):
+def insert_leagues(leagues, summoner_name, tagline, profileIconId, summonerLevel):
 
     if len(leagues) > 0:
         db = get_db()
@@ -19,21 +19,21 @@ def insert_leagues(leagues, summoner_name, tagline):
                 db.execute(
                     """
                     UPDATE league
-                        SET tier = ?, rank = ?, leaguePoints = ?, wins = ?, losses = ?, veteran = ?, inactive = ?, freshBlood = ?, hotStreak = ?
+                        SET tier = ?, rank = ?, leaguePoints = ?, wins = ?, losses = ?, veteran = ?, inactive = ?, freshBlood = ?, hotStreak = ?, profileIconId = ?, summonerLevel = ?
                         WHERE id = ?
                     """,
-                    (league['tier'], league['rank'], league['leaguePoints'], league['wins'], league['losses'], league['veteran'], league['inactive'], league['freshBlood'], league['hotStreak'], db_league['id'])
+                    (league['tier'], league['rank'], league['leaguePoints'], league['wins'], league['losses'], league['veteran'], league['inactive'], league['freshBlood'], league['hotStreak'], profileIconId, summonerLevel, db_league['id'])
                 )
                 db.commit()
             
             if db_league is None:
                 db.execute(
                     """
-                    INSERT INTO league (leagueId, queueType, tier, rank, summonerId, leaguePoints, wins, losses, veteran, inactive, freshBlood, hotStreak, summoner_name, tagline) 
-                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                    INSERT INTO league (leagueId, queueType, tier, rank, summonerId, leaguePoints, wins, losses, veteran, inactive, freshBlood, hotStreak, summoner_name, tagline, profileIconId, summonerLevel) 
+                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                     """,
                     (league['leagueId'], league['queueType'], league['tier'], league['rank'], league['summonerId'], league['leaguePoints'], league['wins'], league['losses'],
-                     league['veteran'], league['inactive'], league['freshBlood'], league['hotStreak'], summoner_name, tagline)
+                     league['veteran'], league['inactive'], league['freshBlood'], league['hotStreak'], summoner_name, tagline, profileIconId, summonerLevel)
                 )
                 db.commit()
         

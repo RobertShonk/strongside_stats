@@ -20,12 +20,39 @@ body {
 
 .player_card {
     margin-top: auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
     background-color: lightblue;
 }
 
 .match {
-    background-color: lightblue;
+    display: grid;
+    grid-template-columns: 20% auto 30%;
+    background-color: lightcyan;
+    margin: 5px;
     height: 100%;
+}
+
+.top_playerdata {
+    display: grid;
+    grid-template-columns: 15% 10% 30% auto;
+}
+
+.match_teams {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.team1 {
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+
+.team2 {
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
 }
 
 .header {

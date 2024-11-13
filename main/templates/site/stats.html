@@ -11,9 +11,32 @@
 
 {% block content %}
     <div class="player_card">
-        <p>{{ session['summoner_name'] }}</p>
+        <div class="player_card_info">
+            <p>{{ session['summoner_name'] }}</p>
+            {% if leagues|length > 0 %}
+                <p>Level {{ leagues[0]['summonerLevel'] }} Icon {{ leagues[0]['profileIconId'] }}</p>
+            {% endif %}
+            
+        </div>
         {% if leagues|length > 0 %}
-            <p>{{ leagues[0]['queueType'] }}: {{ leagues[0]['tier'] }} {{ leagues[0]['rank'] }}</p>
+                <div class="solo_duo">
+                    {% for league in leagues %}
+                        {% if league['queueType'] == 'RANKED_SOLO_5x5' %}
+                            <h3>Solo/Duo</h3>
+                            <p>{{ league['tier'] }} {{ league['rank'] }} - {{ league['leaguePoints'] }} LP</p>
+                            <p>{{ league['profileIconId'] }}</p>
+                        {% endif %}
+                    {% endfor %}
+                        
+                </div>
+                <div class="ranked_flex">
+                    {% for league in leagues %}
+                        {% if league['queueType'] == 'RANKED_FLEX_SR' %}
+                            <h3>Flex</h3>
+                            <p>{{ league['tier'] }} {{ league['rank'] }} - {{ league['leaguePoints'] }} LP</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
         {% else %}
             <p>We don't have this player's ranked data. Try updating or make sure they have played their placement matches.</p>
         {% endif %}
@@ -24,12 +47,66 @@
             <input type="submit" value="Update">
         </form>
     </div>
+    
 
     <div class="matches">
         {% for i in range(metadata|length) %}
             <div class="match">
-                {{ metadata[i]['platformId'] }}
-                {{ participants[i][0]['riotIdGameName'] }}
+                <div class="match_metadata">
+                    {{ metadata[i]['platformId'] }}<br>
+                    {{ metadata[i]['gameCreation'] }}<br>
+                    {{ metadata[i]['gameDuration'] }}
+                </div>
+                {% for j in range(participants[i]|length) %}
+                    {% if participants[i][j]['riotIdGameName'].lower() == session['summoner_name'].lower() %}
+                        <div class="match_playerdata">
+                            <div class="top_playerdata">
+                                <div class="champ_icon">
+                                    <p>{{ participants[i][j]['championName'] }}</p>
+                                </div>
+                                <div class="summoner_spells">
+                                    <p>{{ participants[i][j]['summoner1Id'] }}</p>
+                                    <p>{{ participants[i][j]['summoner2Id'] }}</p>
+                                </div>
+                                <div class="runes">
+                                    <p>{{ participants[i][j]['primary_main_rune'] }}</p>
+                                    <p>{{ participants[i][j]['secondary_main_rune'] }}</p>
+                                </div>
+                                <div class="stats">
+                                    <p>{{ participants[i][j]['kills'] }} / {{ participants[i][j]['deaths'] }} / {{ participants[i][j]['assists'] }}</p>
+                                    {% if not participants[i][j]['deaths'] == 0 %}
+                                        <p>{{ ((participants[i][j]['kills'] + participants[i][j]['assists']) / participants[i][j]['deaths'])|round(1) }}</p>
+                                    {% else %}
+                                        <p>Perfect</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="bot_playerdata">
+                                <div class="items">
+                                    {{ participants[i][j]['item0'] }}|{{ participants[i][j]['item1'] }}|{{ participants[i][j]['item2'] }}|{{ participants[i][j]['item3'] }}|{{ participants[i][j]['item4'] }}|{{ participants[i][j]['item5'] }}
+                                </div>
+                            </div>       
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <div class="match_teams">
+                    <div class="team1">
+                        <img src="">{{ participants[i][0]['riotIdGameName'] }}<br>
+                        {{ participants[i][1]['riotIdGameName'] }}<br>
+                        {{ participants[i][2]['riotIdGameName'] }}<br>
+                        {{ participants[i][3]['riotIdGameName'] }}<br>
+                        {{ participants[i][4]['riotIdGameName'] }}
+                    </div>
+                    <div class="team2">
+                        {{ participants[i][5]['riotIdGameName'] }}<br>
+                        {{ participants[i][6]['riotIdGameName'] }}<br>
+                        {{ participants[i][7]['riotIdGameName'] }}<br>
+                        {{ participants[i][8]['riotIdGameName'] }}<br>
+                        {{ participants[i][9]['riotIdGameName'] }}
+                    </div>
+                    
+                </div>
             </div>
         {% endfor %}
     </div>
