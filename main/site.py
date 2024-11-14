@@ -1,7 +1,7 @@
-import functools
+import json
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, g, redirect, render_template, request, session, url_for
 )
 
 from main.db import get_db
@@ -79,5 +79,50 @@ def stats():
     participants = []
     for match in metadata:
         participants.append(db.execute('SELECT * FROM participant WHERE metadata_id = ?', (match['id'],)).fetchall())
+    
+    runes = read_runes()
+    summoner_spells = read_summoner_json()
+    print(summoner_spells)
+    return render_template('site/stats.html', leagues=leagues, metadata=metadata, participants=participants, runes=runes, summoner_spells=summoner_spells)
 
-    return render_template('site/stats.html', leagues=leagues, metadata=metadata, participants=participants)
+
+def read_runes():
+    with open('main/static/riot_assets/runesReforged.json', 'r') as f:
+        runes_list = json.load(f)
+
+        primary_runes = {}
+        secondary_runes = {}
+        for rune in runes_list:
+            for slot in rune['slots']:
+                for runes in slot['runes']:
+                    primary_runes[runes['id']] = {
+                        'key': runes['key'],
+                        'icon': runes['icon']
+                    }
+                    
+            secondary_runes[rune['id']] = {
+                'key': rune['key'],
+                'icon': rune['icon']
+            }
+        
+        runes = {
+            'primary_runes': primary_runes,
+            'secondary_runes': secondary_runes
+        }
+
+        return runes
+
+    
+
+def read_summoner_json():
+    with open('main/static/riot_assets/summoner.json') as f:
+        j =  json.load(f)['data']
+        spell_keys = []
+        
+        for key in j.keys():
+            spell_keys.append(j[key]['key'])
+
+        spell_names = list(j.keys())
+        sums = dict(zip(spell_keys, spell_names))
+        
+        return sums

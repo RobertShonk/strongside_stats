@@ -32,7 +32,8 @@ def create_app(test_config=None):
     app.register_blueprint(site.bp)
     app.add_url_rule('/', endpoint='index')
 
-    from .jinja_filters import date
+    from .jinja_filters import date, game_length
     app.add_template_filter(date)
+    app.add_template_filter(game_length)
 
     return app

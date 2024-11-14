@@ -46,19 +46,44 @@ body {
 
 .match {
     display: grid;
-    grid-template-columns: 20% auto 30%;
+    grid-template-columns: 10% 30% auto 30%;
     background-color: lightskyblue;
     margin: 5px;
     height: 100%;
 }
 
 .match_metadata {
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
+    margin-left: 5px;
+}
+
+.match_playerdata {
+    margin-left: 1.5rem;
 }
 
 .top_playerdata {
     display: grid;
     grid-template-columns: 15% 10% 30% auto;
+}
+
+.runes {
+    margin-top: .75rem;
+    margin-left: 10px;
+}
+
+.rune_icon {
+    background-color: black;
+    border-radius: 50%;
+}
+
+#primary_rune {
+    height: 2rem;
+    width: 2rem;
+}
+
+#secondary_rune {
+    height: 1.75rem;
+    width: 1.75rem;
 }
 
 #champ_icon {
@@ -68,16 +93,34 @@ body {
     margin-top: 1rem;
 }
 
+.summoner_spells {
+    margin-top: .75rem;
+    margin-left: 5px;
+}
+
+.summoner_spell_icon {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 5px;
+}
+
+.stats {
+    margin-left: -2.75rem;
+}
+
 .item_icons {
-    height: 2.25rem;
-    width: 2.25rem;
+    height: 2rem;
+    width: 2rem;
     margin-bottom: 5px;
+    background-color: black;
 }
 
 .match_teams {
     display: grid;
     grid-template-columns: 50% 50%;
-    margin-top: 1rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    margin-right: 1rem;
 }
 
 .team1 {
@@ -90,6 +133,26 @@ body {
     overflow: hidden;
     white-space:nowrap;
     text-overflow: ellipsis;
+}
+
+.team_player {
+    display: grid;
+    grid-template-columns: 13% auto;
+}
+
+.team_champ_icon {
+    height: 1.3rem;
+    width: 1.3rem;
+    margin-top: 2px;
+    margin-right: 4px;
+}
+
+.team_player_name {
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    margin-top: 3px;
+    margin-left: 2px;
 }
 
 .header {
