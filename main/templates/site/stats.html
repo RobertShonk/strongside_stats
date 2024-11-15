@@ -59,119 +59,113 @@
     
 
     <div class="matches">
-        {% for i in range(metadata|length) %}
+        {% for match in matches %}
             <div class="match">
                 <div class="match_metadata">
-                    {{ metadata[i]['gameMode'] }}<br><br>
-                    {{ metadata[i]['gameCreation']|date }}<br><br>
-                    {{ metadata[i]['gameDuration']|game_length }}
+                    {{ match['game_mode'] }}<br><br>
+                    {{ match['game_creation'] }}<br><br>
+                    {{ match['game_duration'] }}
                 </div>
-                {% for j in range(participants[i]|length) %}
-                    {% if participants[i][j]['riotIdGameName'].lower() == session['summoner_name'].lower() %}
-                        <div class="match_playerdata">
-                            <div class="top_playerdata">
-                                <div class="champ_icon">
-                                    {% set champName = '/riot_assets/champion/' + participants[i][j]['championName'] + '.png' %}
-                                    <img id="champ_icon" src="{{ url_for('static', filename=champName) }}">
-                                </div>
-                                <div class="summoner_spells">
-                                    {% set summoner1 = '/riot_assets/summonerSpells/' + summoner_spells[participants[i][j]['summoner1Id']|string]|string + '.png' %}
-                                    {% set summoner2 = '/riot_assets/summonerSpells/' + summoner_spells[participants[i][j]['summoner2Id']|string]|string + '.png' %}
-                                    <img class="summoner_spell_icon" src="{{ url_for('static', filename=summoner1) }}"><br>
-                                    <img class="summoner_spell_icon" src="{{ url_for('static', filename=summoner2) }}">
-                                </div>
-                                <div class="runes">
-                                    {% set rune1 = '/riot_assets/' + runes['primary_runes'][participants[i][j]['primary_rune1']]['icon'] %}
-                                    {% set rune2 = '/riot_assets/' + runes['secondary_runes'][participants[i][j]['secondary_main_rune']]['icon'] %}
-                                    <img id="primary_rune" class="rune_icon" src="{{ url_for('static', filename=rune1) }}"><br>
-                                    <img id="secondary_rune" class="rune_icon" src="{{ url_for('static', filename=rune2) }}">
-                                </div>
-                                <div class="stats">
-                                    <p>{{ participants[i][j]['kills'] }} / {{ participants[i][j]['deaths'] }} / {{ participants[i][j]['assists'] }}</p>
-                                    {% if not participants[i][j]['deaths'] == 0 %}
-                                        <p>{{ ((participants[i][j]['kills'] + participants[i][j]['assists']) / participants[i][j]['deaths'])|round(1) }} KDA</p>
-                                    {% else %}
-                                        <p>Perfect</p>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="bot_playerdata">
-                                <div class="items">
-                                    {% set item0 = '/riot_assets/item/' + participants[i][j]['item0']|string + '.png' %}
-                                    {% set item1 = '/riot_assets/item/' + participants[i][j]['item1']|string + '.png' %}
-                                    {% set item2 = '/riot_assets/item/' + participants[i][j]['item2']|string + '.png' %}
-                                    {% set item3 = '/riot_assets/item/' + participants[i][j]['item3']|string + '.png' %}
-                                    {% set item4 = '/riot_assets/item/' + participants[i][j]['item4']|string + '.png' %}
-                                    {% set item5 = '/riot_assets/item/' + participants[i][j]['item5']|string + '.png' %}
-                                    <img class="item_icons" src="{{ url_for('static', filename=item0) }}" alt="">
-                                    <img class="item_icons" src="{{ url_for('static', filename=item1) }}" alt="">
-                                    <img class="item_icons" src="{{ url_for('static', filename=item2) }}" alt="">
-                                    <img class="item_icons" src="{{ url_for('static', filename=item3) }}" alt="">
-                                    <img class="item_icons" src="{{ url_for('static', filename=item4) }}" alt="">
-                                    <img class="item_icons" src="{{ url_for('static', filename=item5) }}" alt="">
-                                </div>
-                            </div>       
+
+                <div class="match_playerdata">
+                    <div class="top_playerdata">
+                        <div class="champ_icon">
+                            {% set champName = '/riot_assets/champion/' + match.player['championName'] + '.png' %}
+                            <img id="champ_icon" src="{{ url_for('static', filename=champName) }}">
                         </div>
-                    {% endif %}
-                {% endfor %}
+                        <div class="summoner_spells">
+                            {% set summoner1 = '/riot_assets/summonerSpells/' + summoner_spells[match.player['summoner1Id']|string]|string + '.png' %}
+                            {% set summoner2 = '/riot_assets/summonerSpells/' + summoner_spells[match.player['summoner2Id']|string]|string + '.png' %}
+                            <img class="summoner_spell_icon" src="{{ url_for('static', filename=summoner1) }}"><br>
+                            <img class="summoner_spell_icon" src="{{ url_for('static', filename=summoner2) }}">
+                        </div>
+                        <div class="runes">
+                            {% set rune1 = '/riot_assets/' + runes['primary_runes'][match.player['primary_rune1']]['icon'] %}
+                            {% set rune2 = '/riot_assets/' + runes['secondary_runes'][match.player['secondary_main_rune']]['icon'] %}
+                            <img id="primary_rune" class="rune_icon" src="{{ url_for('static', filename=rune1) }}"><br>
+                            <img id="secondary_rune" class="rune_icon" src="{{ url_for('static', filename=rune2) }}">
+                        </div>
+                        <div class="stats">
+                            <p>{{ match.player['kills'] }}/{{ match.player['deaths'] }}/{{ match.player['assists'] }}</p>
+                            <p>{{ match.get_kda_ratio() }}</p>
+                        </div>
+                    </div>
+                    <div class="bot_playerdata">
+                        <div class="items">
+                            {% set item0 = '/riot_assets/item/' + match.player['item0']|string + '.png' %}
+                            {% set item1 = '/riot_assets/item/' + match.player['item1']|string + '.png' %}
+                            {% set item2 = '/riot_assets/item/' + match.player['item2']|string + '.png' %}
+                            {% set item3 = '/riot_assets/item/' + match.player['item3']|string + '.png' %}
+                            {% set item4 = '/riot_assets/item/' + match.player['item4']|string + '.png' %}
+                            {% set item5 = '/riot_assets/item/' + match.player['item5']|string + '.png' %}
+                            <img class="item_icons" src="{{ url_for('static', filename=item0) }}" alt="">
+                            <img class="item_icons" src="{{ url_for('static', filename=item1) }}" alt="">
+                            <img class="item_icons" src="{{ url_for('static', filename=item2) }}" alt="">
+                            <img class="item_icons" src="{{ url_for('static', filename=item3) }}" alt="">
+                            <img class="item_icons" src="{{ url_for('static', filename=item4) }}" alt="">
+                            <img class="item_icons" src="{{ url_for('static', filename=item5) }}" alt="">
+                        </div>
+                    </div>       
+                </div>
+
                 <div class="extra_info">
-                    <p>Damage Dealt</p>
-                    <p>Damage Taken</p>
-                    <p>CS/min</p>
+                    <p>Damage Dealt: {{ match.player['totalDamageDealtToChampions']}}</p>
+                    <p>Damage Taken: {{ match.player['totalDamageTaken'] }}</p>
+                    <p>CS/min:</p>
                 </div>
                 <div class="match_teams">
                     <div class="team1">
-                        {% set p0_icon = '/riot_assets/champion/' + participants[i][0]['championName'] + '.png' %}
-                        {% set p1_icon = '/riot_assets/champion/' + participants[i][1]['championName'] + '.png' %}
-                        {% set p2_icon = '/riot_assets/champion/' + participants[i][2]['championName'] + '.png' %}
-                        {% set p3_icon = '/riot_assets/champion/' + participants[i][3]['championName'] + '.png' %}
-                        {% set p4_icon = '/riot_assets/champion/' + participants[i][4]['championName'] + '.png' %}
+                        {% set p0_icon = '/riot_assets/champion/' + match.participants[0]['championName'] + '.png' %}
+                        {% set p1_icon = '/riot_assets/champion/' + match.participants[1]['championName'] + '.png' %}
+                        {% set p2_icon = '/riot_assets/champion/' + match.participants[2]['championName'] + '.png' %}
+                        {% set p3_icon = '/riot_assets/champion/' + match.participants[3]['championName'] + '.png' %}
+                        {% set p4_icon = '/riot_assets/champion/' + match.participants[4]['championName'] + '.png' %}
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p0_icon) }}">
-                            <div class="team_player_name">{{ participants[i][0]['riotIdGameName'] }}</div>
+                            <div class="team_player_name">{{ match.participants[0]['riotIdGameName'] }}</div>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p1_icon) }}">
-                            <div class="team_player_name">{{ participants[i][1]['riotIdGameName'] }}</div>
+                            <div class="team_player_name">{{ match.participants[1]['riotIdGameName'] }}</div>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p2_icon) }}">
-                            <div class="team_player_name">{{ participants[i][2]['riotIdGameName'] }}</div>
+                            <div class="team_player_name">{{ match.participants[2]['riotIdGameName'] }}</div>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p3_icon) }}">
-                            <div class="team_player_name">{{ participants[i][3]['riotIdGameName'] }}</div>
+                            <div class="team_player_name">{{ match.participants[3]['riotIdGameName'] }}</div>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p4_icon) }}">
-                            <div class="team_player_name">{{ participants[i][4]['riotIdGameName'] }}</div>
+                            <div class="team_player_name">{{ match.participants[4]['riotIdGameName'] }}</div>
                         </div>
                     </div>
                     <div class="team2">
-                        {% set p5_icon = '/riot_assets/champion/' + participants[i][5]['championName'] + '.png' %}
-                        {% set p6_icon = '/riot_assets/champion/' + participants[i][6]['championName'] + '.png' %}
-                        {% set p7_icon = '/riot_assets/champion/' + participants[i][7]['championName'] + '.png' %}
-                        {% set p8_icon = '/riot_assets/champion/' + participants[i][8]['championName'] + '.png' %}
-                        {% set p9_icon = '/riot_assets/champion/' + participants[i][9]['championName'] + '.png' %}
+                        {% set p5_icon = '/riot_assets/champion/' + match.participants[5]['championName'] + '.png' %}
+                        {% set p6_icon = '/riot_assets/champion/' + match.participants[6]['championName'] + '.png' %}
+                        {% set p7_icon = '/riot_assets/champion/' + match.participants[7]['championName'] + '.png' %}
+                        {% set p8_icon = '/riot_assets/champion/' + match.participants[8]['championName'] + '.png' %}
+                        {% set p9_icon = '/riot_assets/champion/' + match.participants[9]['championName'] + '.png' %}
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p5_icon) }}">
-                            <div class="team_player_name">{{ participants[i][5]['riotIdGameName'] }}</div>
+                            <div class="team_player_name">{{ match.participants[5]['riotIdGameName'] }}</div>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p6_icon) }}">
-                            <div class="team_player_name">{{ participants[i][6]['riotIdGameName'] }}</div>
+                            <div class="team_player_name">{{ match.participants[6]['riotIdGameName'] }}</div>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p7_icon) }}">
-                            <div class="team_player_name">{{ participants[i][7]['riotIdGameName'] }}</div>
+                            <div class="team_player_name">{{ match.participants[7]['riotIdGameName'] }}</div>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p8_icon) }}">
-                            <div class="team_player_name">{{ participants[i][8]['riotIdGameName'] }}</div>
+                            <div class="team_player_name">{{ match.participants[8]['riotIdGameName'] }}</div>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p9_icon) }}">
-                            <div class="team_player_name">{{ participants[i][9]['riotIdGameName'] }}</div>
+                            <div class="team_player_name">{{ match.participants[9]['riotIdGameName'] }}</div>
                         </div>
                     </div>
                     

@@ -11,4 +11,7 @@ class Match:
         self.participants = participants
 
     def get_kda_ratio(self):
+        if self.player['deaths'] == 0:
+            return 'Perfect'
+
         return round(((self.player['kills'] + self.player['assists']) / self.player['deaths']), 1)

@@ -89,7 +89,7 @@ def stats():
     runes = read_runes()
     summoner_spells = read_summoner_json()
 
-    return render_template('site/stats.html', leagues=leagues, metadata=metadata, participants=participants, runes=runes, summoner_spells=summoner_spells, matches=matches)
+    return render_template('site/stats.html', leagues=leagues, matches=matches, runes=runes, summoner_spells=summoner_spells)
 
 
 def read_runes():
