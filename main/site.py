@@ -7,6 +7,7 @@ from flask import (
 from main.db import get_db
 import main.riot_api as riot_api
 import main.util as util
+from main.models import Match
 
 bp = Blueprint('site', __name__)
 
@@ -79,11 +80,16 @@ def stats():
     participants = []
     for match in metadata:
         participants.append(db.execute('SELECT * FROM participant WHERE metadata_id = ?', (match['id'],)).fetchall())
+
+    matches = []
+    for meta in metadata:
+        parts = db.execute('SELECT * FROM participant WHERE metadata_id = ?', (meta['id'],)).fetchall()
+        matches.append(Match(meta, parts, summoner_name))
     
     runes = read_runes()
     summoner_spells = read_summoner_json()
-    print(summoner_spells)
-    return render_template('site/stats.html', leagues=leagues, metadata=metadata, participants=participants, runes=runes, summoner_spells=summoner_spells)
+
+    return render_template('site/stats.html', leagues=leagues, metadata=metadata, participants=participants, runes=runes, summoner_spells=summoner_spells, matches=matches)
 
 
 def read_runes():

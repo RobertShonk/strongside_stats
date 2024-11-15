@@ -148,11 +148,11 @@
                         </div>
                     </div>
                     <div class="team2">
-                        {% set p5_icon = '/riot_assets/champion/' + participants[i][0]['championName'] + '.png' %}
-                        {% set p6_icon = '/riot_assets/champion/' + participants[i][1]['championName'] + '.png' %}
-                        {% set p7_icon = '/riot_assets/champion/' + participants[i][2]['championName'] + '.png' %}
-                        {% set p8_icon = '/riot_assets/champion/' + participants[i][3]['championName'] + '.png' %}
-                        {% set p9_icon = '/riot_assets/champion/' + participants[i][4]['championName'] + '.png' %}
+                        {% set p5_icon = '/riot_assets/champion/' + participants[i][5]['championName'] + '.png' %}
+                        {% set p6_icon = '/riot_assets/champion/' + participants[i][6]['championName'] + '.png' %}
+                        {% set p7_icon = '/riot_assets/champion/' + participants[i][7]['championName'] + '.png' %}
+                        {% set p8_icon = '/riot_assets/champion/' + participants[i][8]['championName'] + '.png' %}
+                        {% set p9_icon = '/riot_assets/champion/' + participants[i][9]['championName'] + '.png' %}
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p5_icon) }}">
                             <div class="team_player_name">{{ participants[i][5]['riotIdGameName'] }}</div>
@@ -179,5 +179,4 @@
             </div>
         {% endfor %}
     </div>
-    
 {% endblock %}
