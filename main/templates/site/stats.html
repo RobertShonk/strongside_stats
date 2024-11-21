@@ -62,9 +62,9 @@
         {% for match in matches %}
             <div class="match">
                 <div class="match_metadata">
-                    {{ match['game_mode'] }}<br><br>
-                    {{ match['game_creation'] }}<br><br>
-                    {{ match['game_duration'] }}
+                    {{ match.match_type }}<br><br>
+                    {{ match.date_played|date }}<br><br>
+                    {{ match.game_duration|game_length }}<br>
                 </div>
 
                 <div class="match_playerdata">

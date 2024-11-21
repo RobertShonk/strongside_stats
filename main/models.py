@@ -3,12 +3,23 @@ class Match:
         self.game_mode = metadata['gameMode']
         self.date_played = metadata['gameCreation']
         self.game_duration = metadata['gameDuration']
-        #self.player = [p for p in participants if p['riotIdGameName'] == summoner_name]
+
         for p in participants:
             if p['riotIdGameName'].lower() == summoner_name.lower():
                 self.player = p
 
         self.participants = participants
+
+        self.match_type = 'Other'
+        if metadata['queueId'] == 420:
+            self.match_type = 'Solo/Duo'
+        elif metadata['queueId'] == 430 or metadata['queueId'] == 400:
+            self.match_type = 'Normal'
+        elif metadata['queueId'] == 440:
+            self.match_type = 'Flex'
+        elif metadata['queueId'] == 450:
+            self.match_type = 'ARAM'
+        
 
     def get_kda_ratio(self):
         if self.player['deaths'] == 0:

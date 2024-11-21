@@ -7,4 +7,4 @@ def date(timestamp):
 def game_length(time):
     minutes = time // 60
     seconds = time % 60
-    return f'{minutes} min {seconds} sec'
+    return f'{minutes} m {seconds} s'

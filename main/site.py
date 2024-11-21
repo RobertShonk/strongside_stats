@@ -68,7 +68,7 @@ def stats():
         (summoner_name, tagline)
     ).fetchall()
 
-    metadata_ids = db.execute('SELECT metadata_id FROM participant WHERE summonerName LIKE ? LIMIT 20', (summoner_name,)).fetchall()
+    metadata_ids = db.execute('SELECT metadata_id FROM participant WHERE summonerName LIKE ? ORDER BY id DESC LIMIT 20', (summoner_name,)).fetchall()
     metadata = []
     for id in metadata_ids:
         metadata.append(db.execute('SELECT * FROM metadata WHERE id = ?', (id['metadata_id'],)).fetchone())
@@ -77,6 +77,7 @@ def stats():
     for meta in metadata:
         parts = db.execute('SELECT * FROM participant WHERE metadata_id = ?', (meta['id'],)).fetchall()
         matches.append(Match(meta, parts, summoner_name))
+    matches = sorted(matches, key=lambda m: m.date_played, reverse=True)
     
     runes = read_runes()
     summoner_spells = read_summoner_json()
