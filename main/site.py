@@ -45,10 +45,6 @@ def stats():
         else:
             return f'[site.py] Error using Riot API using this data<br> Summoner name: {summoner_name}, Tagline: {tagline}'
 
-        return render_template('site/stats.html', method='redirect')
-
-    summoner_name = ''
-    tagline = ''
     # get
     if 'redirect' in session.keys():
         if session['redirect'] is True:
@@ -76,10 +72,6 @@ def stats():
     metadata = []
     for id in metadata_ids:
         metadata.append(db.execute('SELECT * FROM metadata WHERE id = ?', (id['metadata_id'],)).fetchone())
-
-    participants = []
-    for match in metadata:
-        participants.append(db.execute('SELECT * FROM participant WHERE metadata_id = ?', (match['id'],)).fetchall())
 
     matches = []
     for meta in metadata:

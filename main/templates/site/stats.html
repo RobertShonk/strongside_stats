@@ -87,7 +87,7 @@
                         </div>
                         <div class="stats">
                             <p>{{ match.player['kills'] }}/{{ match.player['deaths'] }}/{{ match.player['assists'] }}</p>
-                            <p>{{ match.get_kda_ratio() }}</p>
+                            <p>{{ match.get_kda_ratio() }} KDA</p>
                         </div>
                     </div>
                     <div class="bot_playerdata">
@@ -107,11 +107,8 @@
                         </div>
                     </div>       
                 </div>
-
                 <div class="extra_info">
-                    <p>Damage Dealt: {{ match.player['totalDamageDealtToChampions']}}</p>
-                    <p>Damage Taken: {{ match.player['totalDamageTaken'] }}</p>
-                    <p>CS/min:</p>
+                    <canvas id="chart{{ loop.index }}" style="width:80%; height:80%;margin-right:2rem;"></canvas>
                 </div>
                 <div class="match_teams">
                     <div class="team1">
@@ -173,4 +170,46 @@
             </div>
         {% endfor %}
     </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+    <script>
+        {% for match in matches %}
+            new Chart('chart{{loop.index}}', {
+                type: 'bar',
+                data: {
+                    labels: ['Damage Done', 'Damage Taken', 'CS/m'],
+                    datasets: [{
+                        label: 'chart{{loop.index}}',
+                        data: {{ match.create_chart_data() }}
+                    }],
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            min: 0,
+                            max: 1,
+                            ticks: {
+                                display: false
+                            },
+                            grid: {
+                                drawTicks: false
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        {% endfor%}
+    </script>
 {% endblock %}
