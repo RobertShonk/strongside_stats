@@ -124,7 +124,12 @@ body {
 }
 
 .extra_info {
-    margin-left: -3rem;
+    height: 85%;
+    margin-top: .7rem;
+    margin-bottom: .5rem;
+    margin-left: -5rem;
+    margin-right: 2rem;
+    background-color: rgb(231, 197, 197);
 }
 
 .match_teams {

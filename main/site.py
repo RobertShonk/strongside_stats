@@ -41,9 +41,9 @@ def stats():
                 session['redirect'] = True
                 return redirect(url_for('site.stats'))
             else:
-                return f'[site.py]: {session['summoner_name']}'
+                return f'[site.py]: {session['summoner_name']} {session['tagline']}'
         else:
-            return f'[site.py] Error using Riot API using this data<br> Summoner name: {summoner_name}, Tagline: {tagline}'
+            return f'[site.py] Error using Riot API using this data<br> Summoner name: {summoner_name}, Tagline: {tagline} <br> status codes: leagues {leagues[1]}, account = {account[1]}'
 
     # get
     if 'redirect' in session.keys():
