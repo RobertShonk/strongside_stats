@@ -60,7 +60,12 @@
 
     <div class="matches">
         {% for match in matches %}
-            <div class="match">
+            {% if match.player['win'] == 0 %}
+                {% set win_loss = 'match_win' %}
+            {% else %}
+                {% set win_loss = 'match_loss' %}
+            {% endif%}
+            <div class="match {{ win_loss }}">
                 <div class="match_metadata">
                     {{ match.match_type }}<br><br>
                     {{ match.date_played|date }}<br><br>

@@ -52,6 +52,14 @@ body {
     height: 100%;
 }
 
+.match_win {
+    background-color:#89CFF0;
+}
+
+.match_loss {
+    background-color: #CD5C5C;
+}
+
 .match_metadata {
     margin-top: 1.5rem;
     margin-left: 5px;
