@@ -124,23 +124,23 @@
                         {% set p4_icon = '/riot_assets/champion/' + match.participants[4]['championName'] + '.png' %}
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p0_icon) }}">
-                            <div class="team_player_name">{{ match.participants[0]['riotIdGameName'] }}</div>
+                            <a class="team_anchor" href="{{ url_for('site.stats', summoner_name=match.participants[0]['riotIdGameName'], tagline=match.participants[0]['riotIdTagline']) }}"><div class="team_player_name">{{ match.participants[0]['riotIdGameName'] }}</div></a>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p1_icon) }}">
-                            <div class="team_player_name">{{ match.participants[1]['riotIdGameName'] }}</div>
+                            <a class="team_anchor" href="{{ url_for('site.stats', summoner_name=match.participants[1]['riotIdGameName'], tagline=match.participants[1]['riotIdTagline']) }}"><div class="team_player_name">{{ match.participants[1]['riotIdGameName'] }}</div></a>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p2_icon) }}">
-                            <div class="team_player_name">{{ match.participants[2]['riotIdGameName'] }}</div>
+                            <a class="team_anchor" href="{{ url_for('site.stats', summoner_name=match.participants[2]['riotIdGameName'], tagline=match.participants[2]['riotIdTagline']) }}"><div class="team_player_name">{{ match.participants[2]['riotIdGameName'] }}</div></a>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p3_icon) }}">
-                            <div class="team_player_name">{{ match.participants[3]['riotIdGameName'] }}</div>
+                            <a class="team_anchor" href="{{ url_for('site.stats', summoner_name=match.participants[3]['riotIdGameName'], tagline=match.participants[3]['riotIdTagline']) }}"><div class="team_player_name">{{ match.participants[3]['riotIdGameName'] }}</div></a>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p4_icon) }}">
-                            <div class="team_player_name">{{ match.participants[4]['riotIdGameName'] }}</div>
+                            <a class="team_anchor" href="{{ url_for('site.stats', summoner_name=match.participants[4]['riotIdGameName'], tagline=match.participants[4]['riotIdTagline']) }}"><div class="team_player_name">{{ match.participants[4]['riotIdGameName'] }}</div></a>
                         </div>
                     </div>
                     <div class="team2">
@@ -151,23 +151,23 @@
                         {% set p9_icon = '/riot_assets/champion/' + match.participants[9]['championName'] + '.png' %}
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p5_icon) }}">
-                            <div class="team_player_name">{{ match.participants[5]['riotIdGameName'] }}</div>
+                            <a class="team_anchor" href="{{ url_for('site.stats', summoner_name=match.participants[5]['riotIdGameName'], tagline=match.participants[5]['riotIdTagline']) }}"><div class="team_player_name">{{ match.participants[5]['riotIdGameName'] }}</div></a>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p6_icon) }}">
-                            <div class="team_player_name">{{ match.participants[6]['riotIdGameName'] }}</div>
+                            <a class="team_anchor" href="{{ url_for('site.stats', summoner_name=match.participants[6]['riotIdGameName'], tagline=match.participants[6]['riotIdTagline']) }}"><div class="team_player_name">{{ match.participants[6]['riotIdGameName'] }}</div></a>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p7_icon) }}">
-                            <div class="team_player_name">{{ match.participants[7]['riotIdGameName'] }}</div>
+                            <a class="team_anchor" href="{{ url_for('site.stats', summoner_name=match.participants[7]['riotIdGameName'], tagline=match.participants[7]['riotIdTagline']) }}"><div class="team_player_name">{{ match.participants[7]['riotIdGameName'] }}</div></a>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p8_icon) }}">
-                            <div class="team_player_name">{{ match.participants[8]['riotIdGameName'] }}</div>
+                            <a class="team_anchor" href="{{ url_for('site.stats', summoner_name=match.participants[8]['riotIdGameName'], tagline=match.participants[8]['riotIdTagline']) }}"><div class="team_player_name">{{ match.participants[8]['riotIdGameName'] }}</div></a>
                         </div>
                         <div class="team_player">
                             <img class="team_champ_icon" src="{{ url_for('static', filename=p9_icon) }}">
-                            <div class="team_player_name">{{ match.participants[9]['riotIdGameName'] }}</div>
+                            <a class="team_anchor" href="{{ url_for('site.stats', summoner_name=match.participants[9]['riotIdGameName'], tagline=match.participants[9]['riotIdTagline']) }}"><div class="team_player_name">{{ match.participants[9]['riotIdGameName'] }}</div></a>
                         </div>
                     </div>
                     

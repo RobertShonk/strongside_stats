@@ -167,6 +167,11 @@ body {
     margin-left: 2px;
 }
 
+.team_anchor {
+    text-decoration: none;
+    color: black;
+}
+
 .header {
     color:white;
 }
