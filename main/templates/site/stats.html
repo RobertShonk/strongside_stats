@@ -61,9 +61,9 @@
     <div class="matches">
         {% for match in matches %}
             {% if match.player['win'] == 0 %}
-                {% set win_loss = 'match_win' %}
-            {% else %}
                 {% set win_loss = 'match_loss' %}
+            {% else %}
+                {% set win_loss = 'match_win' %}
             {% endif%}
             <div class="match {{ win_loss }}">
                 <div class="match_metadata">
@@ -193,6 +193,29 @@
                     plugins: {
                         legend: {
                             display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let dataIndex = context.dataIndex || '';
+                                    let totalDamage = {{ match.player['totalDamageDealtToChampions'] }};
+                                    let totalTaken = {{ match.player['totalDamageTaken'] }};
+
+                                    if (dataIndex == 0) {
+                                        context.label = totalDamage.toLocaleString();
+                                    }
+                                    else if (dataIndex == 1) {
+                                        context.label = totalTaken.toLocaleString();
+                                    }
+                                    else if (dataIndex == 2) {
+                                        context.label = '{{ match.get_cs_per_min() }}';
+                                    }
+                                    else {
+                                        return ''
+                                    }
+                                    return context.label;
+                                }
+                            }
                         }
                     },
                     indexAxis: 'y',
