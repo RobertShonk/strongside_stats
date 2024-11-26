@@ -46,7 +46,7 @@ body {
 
 .match {
     display: grid;
-    grid-template-columns: 10% 30% auto 30%;
+    grid-template-columns: 10% 30% auto 30% 2%;
     background-color: lightskyblue;
     margin: 5px;
     height: 100%;
